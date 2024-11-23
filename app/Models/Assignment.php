@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Assignment extends Model
 {
     use HasFactory;
-
+    //testhau
     protected $fillable = [
         'title',
         'file_name',
