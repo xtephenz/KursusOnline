@@ -28,5 +28,6 @@
             </div>
             <button type="submit" class="btn btn-primary">Login</button>        
         </form>
+        Don't have an account? <a href="{{ route('registerPage') }}">Register here!</a>
     </div>
 @endsection

@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
 </head>
 <body>
-    @include('component.navbar')
+    @include('component.Navbar')
     @yield('content')
-    @include('component.footer')
+    @include('component.Footer')
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 </body>
 </html>

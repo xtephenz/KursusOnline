@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('course_id')->constrained('courses')->onUpdate('cascade')->onDelete('cascade');
             $table->string('title');
-            $table->text('description'); // diisi dengan tujuan pembelajaran (LO)
             $table->timestamps();
         });
     }
