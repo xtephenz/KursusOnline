@@ -1,20 +1,22 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         {{-- ganti jadi logo --}}
-        <a class="navbar-brand me-5" href="{{ route('homePage') }}">LOGO</a>
+        <a class="navbar-brand me-5" href="{{ route('homePage.view') }}">LOGO</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse gap-4 d-flex justify-content-center" id="navbarSupportedContent">
             <ul class="navbar-nav gap-5">
+                @if ((Auth::check() && Auth::user()->role_id != 1) || !Auth::check())
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ route('homePage.view') }}">Home</a>
+                    </li>
+                @endif
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ route('homePage') }}">Home</a>
+                    <a class="nav-link active" href="{{ route('coursesPage.view') }}">Courses</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Courses</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="{{ route('aboutUsPage') }}">About Us</a>
+                    <a class="nav-link active" href="{{ route('aboutUsPage.view') }}">About Us</a>
                 </li>
                 {{-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -35,7 +37,7 @@
         </div>
         <div class="ms-2">
             @if (!Auth::check())
-                <a class="btn btn-primary" href="{{ route('loginPage') }}">Login</a>
+                <a class="btn btn-primary" href="{{ route('loginPage.view') }}">Login</a>
             @endif
             @if (Auth::check())
                 <a class="btn btn-danger" href="{{ route('loginPage.logout') }}">Logout</a>

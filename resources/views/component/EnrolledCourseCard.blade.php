@@ -2,10 +2,10 @@
     @php
         $coursesPerRow = 3;
     @endphp
-    <div class="row gap-3 my-1">
+    <div class="row gap-3">
         @for ($i = 0; $i < count($courses); $i++)         
             @if ($i % $coursesPerRow == 0 && $i != 0)
-                </div><div class="row gap-3 my-1">
+                </div><div class="row gap-3">
             @endif
             <div class="card" style="width: 20rem;">
                 <div class="card-body d-flex flex-column gap-1">
@@ -21,15 +21,9 @@
                             <small class="text-muted">Lecturer</small>
                         </div>
                     </div>
-                    @if (!Auth::check() || Auth::user()->role_id == 2)
-                        <div class="mt-auto">
-                            <a href="{{ route('enrollmentPage.view', $courses[$i]->id) }}" class="btn btn-primary">Show Details...</a>
-                        </div>
-                    @elseif (Auth::user()->role_id == 1)
-                        <div class="mt-auto">
-                            <a href="{{ route('courseDetailPage.view', $courses[$i]->id) }}" class="btn btn-primary">View Course</a>
-                        </div>
-                    @endif
+                    <div class="mt-auto">
+                        <a href="{{ route('courseDetailPage.view', $courses[$i]->id) }}" class="btn btn-primary">View Course</a>
+                    </div>
                 </div>
             </div>
         @endfor

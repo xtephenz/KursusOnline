@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Middleware\AlreadyLoggedIn;
+use App\Http\Middleware\RedirectAdminFromHomePage;
+use App\Http\Middleware\RestrictAdminFromHomePage;
+use App\Http\Middleware\RestrictGuestFromEnrolling;
+use App\Http\Middleware\RestrictGuestFromViewCourseDetails;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -11,7 +16,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->alias([
+            'restrict.admin' => RestrictAdminFromHomePage::class,
+            'restrict.enroll' => RestrictGuestFromEnrolling::class,
+            'restrict.details' => RestrictGuestFromViewCourseDetails::class,
+            'logged.in' => AlreadyLoggedIn::class
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

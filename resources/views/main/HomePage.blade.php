@@ -1,26 +1,53 @@
 @extends('layout.master')
 @section('content')
-    <div class="container-fluid">
+    <div class="container my-2">
         @if (Auth::check())
             <h5 class="text-end">Welcome, {{ Auth::user()->name }}</h5>
-            @if (Auth::user()->role_id == 1)
-                {{-- show all course --}}
-                @include('component.CourseCard', ['courses' => $allCourses])
-            @elseif (Auth::user()->role_id == 2)
-                {{-- show course that is enrolled --}}
-                {{-- show all course --}}
-                @include('component.CourseCard', ['courses' => $allCourses])
-                @if($allCourses->hasMorePages())
-                    <div class="text-center p-3">
-                        <a href="#" class="btn btn-primary">Show More</a>
+            @if (Auth::user()->role_id == 2)
+                <div class="d-flex flex-column gap-4">
+                    @if ($enrolledCourses->isNotEmpty())
+                        <div class="container">
+                            {{-- show course that is enrolled --}}
+                            <h4>Enrolled Courses</h4>
+                            @include('component.EnrolledCourseCard', ['courses' => $enrolledCourses])
+                        </div>
+                    @endif
+                    <div class="container">
+                        {{-- show all course --}}
+                        <h4>All Courses</h4>
+                        @include('component.CourseCard', ['courses' => $allCourses])
+                        @if($allCourses->hasMorePages())
+                            <div class="text-center p-3">
+                                <a href="{{ route('coursesPage.view') }}" class="btn btn-primary">Show More</a>
+                            </div>
+                        @else
+                            <div class="text-center p-3">
+                                <a href="{{ route('coursesPage.view') }}" class="btn btn-primary">Show More</a>
+                            </div>
+                        @endif
                     </div>
-                @endif
+                </div>
             @elseif (Auth::user()->role_id == 3)
-                {{-- show course that is taught --}}
+                <div class="d-flex flex-column gap-4">
+                    <div class="container">
+                        {{-- show course that is taught --}}
+                        <h4>Taught Courses</h4>
+                        @include('component.TaughtCourseCard', ['courses' => $taughtCourses])
+                    </div>
+                </div>
             @endif
         @else
             <h5 class="text-end">Welcome to Kursus Online!</h5>
             @include('component.CourseCard', ['courses' => $allCourses])
+            @if($allCourses->hasMorePages())
+                <div class="text-center p-3">
+                    <a href="{{ route('coursesPage.view') }}" class="btn btn-primary">Show More</a>
+                </div>
+            @else
+                <div class="text-center p-3">
+                    <a href="{{ route('coursesPage.view') }}" class="btn btn-primary">Show More</a>
+                </div>
+            @endif
         @endif
     </div>
 @endsection

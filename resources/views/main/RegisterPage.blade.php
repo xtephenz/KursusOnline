@@ -1,7 +1,8 @@
 @extends('layout.master')
 @section('content')
-    <div class="container">
-        <form action="{{ route('registerPage.register') }}" method="post">
+    <div class="container mb-3 mt-4" style="width: 450px; border: 2px solid black; border-radius: 10px">
+        <h4 class="text-center mt-2">Register</h4>
+        <form class="p-3" action="{{ route('registerPage.register') }}" method="post">
             @csrf
             {{-- Full Name --}}
             <div class="mb-3">
@@ -81,8 +82,12 @@
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>        
+            <div class="d-flex justify-content-center mb-3">
+                <button type="submit" class="btn btn-primary">Register</button>        
+            </div>   
         </form>
-        Already have an account? <a href="{{ route('loginPage') }}">Login here!</a>
+        <p class="text-center">
+            Already have an account? <a href="{{ route('loginPage.view') }}">Login here!</a>
+        </p>
     </div>
 @endsection

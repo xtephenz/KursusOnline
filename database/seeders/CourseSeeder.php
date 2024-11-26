@@ -42,6 +42,22 @@ class CourseSeeder extends Seeder
                 'name' => 'Compilation Techniques',
                 'lecturer_id' => '3'
             ],
+            [
+                'name' => 'Object-Oriented Analysis & Design',
+                'lecturer_id' => '5'
+            ],
+            [
+                'name' => 'Algorithm & Progamming',
+                'lecturer_id' => '4'
+            ],
+            [
+                'name' => 'Data Structure',
+                'lecturer_id' => '4'
+            ],
+            [
+                'name' => 'Algorithm Design & Analysis',
+                'lecturer_id' => '5'
+            ],
         ];
 
         DB::table('courses')->insert($courses);

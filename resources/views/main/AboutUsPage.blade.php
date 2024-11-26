@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @section('content')
-    <div class="row mx-5 mt-3">
+    <div class="row mx-5 mt-2">
         <div class="col-12">
             <h2 class="text-center mb-4" style="font-size: 30px; font-weight: bold;">About Kursus Online</h2>
             <p class="px-5" style="text-align: justify; font-size: 18px; line-height: 1.6;">
