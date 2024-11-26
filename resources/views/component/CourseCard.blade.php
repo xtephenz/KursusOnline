@@ -7,7 +7,7 @@
             @if ($i % $coursesPerRow == 0 && $i != 0)
                 </div><div class="row gap-3 my-1">
             @endif
-            <div class="card" style="width: 20rem;">
+            <div class="card" style="width: 25rem;">
                 <div class="card-body d-flex flex-column gap-1">
                     <h5 class="card-title">{{ $courses[$i]->name }}</h5>
                     <div class="fs-5 d-inline-flex">

@@ -31,7 +31,7 @@ class CourseController extends Controller
                 $enrolledCourseIds = $enrollments->filter(function($enrollment) use ($student_id) {
                     return $enrollment->student_id == $student_id;
                 })->pluck('course_id');
-                $allCourses = Course::with('lecturer', 'enrollments', 'topics', 'assignments')->whereNotIn('id', $enrolledCourseIds)->orderBy('name')->paginate(6);
+                $allCourses = Course::with('lecturer', 'enrollments', 'topics', 'assignments')->whereNotIn('id', $enrolledCourseIds)->orderBy('name')->paginate(9);
             }
             else if($role_id == 3){
                 $lecturer = Auth::user();
