@@ -25,8 +25,12 @@
         @include('component.CourseTabs', ['course' => $course])
         {{-- Topic Tab --}}
         @if (request()->routeIs('courseDetailPage.view'))
-            @include('component.TopicsTabs', ['topics' => $course->topics, 'course' => $course])
-            @include('component.TopicDetailTab', ['topic' => $topic])
+            @if ($topic != null)
+                @include('component.TopicsTabs', ['topics' => $course->topics, 'course' => $course])
+                @include('component.TopicDetailTab', ['topic' => $topic])
+            @else
+                TBA
+            @endif
         @endif
         {{-- Assignment Tab --}}
         @if (request()->routeIs('courseDetailPage.assignment'))

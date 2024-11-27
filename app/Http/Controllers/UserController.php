@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -53,6 +54,11 @@ class UserController extends Controller
     }
 
     public function login(Request $request) {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
+
         $credentials = $request->only('email', 'password');
         // cek apakah remember me dicentang?
         $remember = $request->has('remember_me');  // Use remember_me here
@@ -70,5 +76,72 @@ class UserController extends Controller
     {
         Auth::logout();
         return redirect()->route('homePage.view');
+    }
+
+    public function viewAddCoursePage()
+    {
+        $lecturers = User::with('role', 'enrollments', 'courses', 'submissions')->where('role_id', '3')->get();
+        return view('main.AddCoursePage', ['lecturers' => $lecturers]);
+    }
+
+    public function viewProfilePage($user_id)
+    {
+        $user = User::with('role', 'enrollments', 'courses', 'submissions')->find($user_id);
+        return view('main.ProfilePage', ['user' => $user]);
+    }
+
+    public function updateProfile($user_id, Request $request)
+    {
+        $user = User::with('role', 'enrollments', 'courses', 'submissions')->find($user_id);
+
+        $request->validate([
+            'name' => 'required|string|max:100',
+            'dob' => 'required|date|before:13 years ago',
+            'photo' => 'nullable|image|max:5000'
+        ]);
+
+        $user->name = $request->name;
+        $user->date_of_birth = $request->dob;
+
+        if($request->photo != null){
+            if($user->photo != null){
+                Storage::disk('public')->delete($user->photo);
+            }
+            $user->photo = $request->photo->store('users', 'public');
+        }
+        $user->save();
+
+        return redirect()->back();
+    }
+
+    public function deletePhoto($user_id)
+    {
+        $user = User::with('role', 'enrollments', 'courses', 'submissions')->find($user_id);
+        Storage::disk('public')->delete($user->photo);
+        $user->photo = null;
+        $user->save();
+        return redirect()->back();
+    }
+
+    public function changePassword($user_id, Request $request)
+    {
+        $user = User::with('role', 'enrollments', 'courses', 'submissions')->find($user_id);
+        
+        $request->validate([
+            'currentPassword' => 'required|string',
+        ]);
+
+        if (!Hash::check($request->currentPassword, $user->password)) {
+            return back()->withErrors(['currentPassword' => 'The provided password does not match your current password.']);
+        }
+
+        $request->validate([
+            'newPassword' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user->password = Hash::make($request->newPassword);
+        $user->save();
+
+        return redirect()->back()->with('success', 'Password has been changed!');
     }
 }

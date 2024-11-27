@@ -1,3 +1,7 @@
+/storage/*
+
+!storage/app/public/
+
 /.phpunit.cache
 /node_modules
 /public/build

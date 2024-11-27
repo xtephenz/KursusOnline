@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
-use App\Models\Enrollment;
 use App\Models\Topic;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,16 +24,10 @@ class CourseController extends Controller
                 foreach ($enrollments as $enrollment){
                     $enrolledCourses->push($enrollment->course);
                 }
-
-                $student_id = $student->id;
-                $enrolledCourseIds = $enrollments->filter(function($enrollment) use ($student_id) {
-                    return $enrollment->student_id == $student_id;
-                })->pluck('course_id');
-                $allCourses = Course::with('lecturer', 'enrollments', 'topics', 'assignments')->whereNotIn('id', $enrolledCourseIds)->orderBy('name')->paginate(9);
             }
             else if($role_id == 3){
                 $lecturer = Auth::user();
-                $taughtCourses = Course::with('lecturer', 'enrollments', 'topics', 'assignments')->where('lecturer_id', $lecturer->id)->get();
+                $taughtCourses = Course::with('lecturer', 'enrollments', 'topics', 'assignments')->where('lecturer_id', $lecturer->id)->orderBy('name')->paginate(9);
             }    
         }
         // kalau tidak login, tampilannya hanya bisa lihat semua course
@@ -49,27 +41,6 @@ class CourseController extends Controller
     {
         $course = Course::with('lecturer', 'enrollments', 'topics', 'assignments')->find($course_id);
         return view('main.EnrollmentPage', ['course' => $course]);
-    }
-
-    public function enrollToCourse($course_id)
-    {
-        $student_id = Auth::user()->id;
-        $enrollment = Enrollment::with('student', 'course')->where('student_id', $student_id)->where('course_id', $course_id)->first();
-        if($enrollment){
-            if($enrollment->status == 'Cancelled'){
-                $enrollment->update([
-                    'status' => 'Active',
-                    'enroll_date' => now()->toDateString()
-                ]);
-                return redirect()->route('homePage.view');
-            }
-        }
-        Enrollment::create([
-            'student_id' => $student_id,
-            'course_id' => $course_id,
-            'enroll_date' => now()->toDateString(),
-        ]);
-        return redirect()->route('homePage.view');
     }
 
     public function viewCoursesPage()
@@ -100,7 +71,10 @@ class CourseController extends Controller
     public function viewCourseDetailPage($course_id, $topic_id = 0)
     {
         $course = Course::with('lecturer', 'enrollments', 'topics', 'assignments')->find($course_id);
-        if($topic_id == 0) $topic = $course->topics->first();
+        if($topic_id == 0){
+            if($course->topics != null) $topic = $course->topics->first();
+            else $topic = null;
+        }
         else $topic = Topic::with('course', 'materials')->find($topic_id);
         return view('main.CourseDetailPage', ['course' => $course, 'topic' => $topic]);
     }
@@ -121,5 +95,38 @@ class CourseController extends Controller
             $enrolledStudents->push($enrollment->student);
         }
         return view('main.CourseDetailPage', ['course' => $course, 'students' => $enrolledStudents]);
+    }
+
+    public function addNewCourse(Request $request)
+    {
+        // kalau button Add Topic diklik, maka tambahkan field topic baru
+        if ($request->has('add_topic')) {
+            $topics = $request->input('topics', []);
+            $topics[] = '';
+            return redirect()->back()->withInput(['topics' => $topics, 'name' => $request->name, 'lecturer' => $request->lecturer]);
+        }
+        $validated = $request->validate(
+            [
+                'name' => 'required|unique:courses,name|max:100',
+                'lecturer' => 'required|exists:users,id',
+                'topics' => 'required|array|min:1', // array setidaknya punya 1 elemen
+                'topics.*' => 'required|string|max:255' // isi array wajib ada
+            ],
+            [
+                'name.unique' => 'The course has already exist.',
+                'topics.*.required' => 'Topic cannot be empty'
+            ]
+        );
+        $course = Course::create([
+            'name' => $request->name,
+            'lecturer_id' => $request->lecturer
+        ]);
+        foreach ($validated['topics'] as $topic) {
+            Topic::create([
+                'course_id' => $course->id,
+                'title' => $topic
+            ]);
+        }
+        return redirect()->route('coursesPage.view')->with('success', 'New course has been added!');
     }
 }

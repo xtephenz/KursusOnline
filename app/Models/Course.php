@@ -12,7 +12,10 @@ class Course extends Model
     use HasFactory;
 
     // atribut apa aja yang bisa diisi oleh user
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'name',
+        'lecturer_id'
+    ];
 
     public function lecturer(): BelongsTo
     {
