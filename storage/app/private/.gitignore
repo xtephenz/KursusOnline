@@ -1,2 +1,8 @@
 *
 !.gitignore
+!materials/
+!materials/*
+!assignments/
+!assignments/*
+!submissions/
+!submissions/*

@@ -17,13 +17,11 @@ return new class extends Migration
             $table->foreignId('course_id')->constrained('courses')->onUpdate('cascade')->onDelete('cascade');
             $table->date('enroll_date');
             // secara default, statusnya active,
-            // status = cancel, kalau misalnya cancel enrollment
+            // status = cancelled, kalau misalnya cancel enrollment
             // status = finished, kalau misalnya udah tamatkan course
-            // status = suspended, kalau misalnya student lagi jeda
             $table->string('status')->default('Active');
             $table->double('grade')->nullable(); // nilai akhir untuk course yg dienroll oleh student
             $table->timestamps();
-            $table->unique(['course_id', 'student_id']);
         });
     }
 
