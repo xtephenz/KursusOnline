@@ -31,7 +31,7 @@
                 @enderror
             </div> 
             <div class="d-flex justify-content-center mb-3">
-                <button type="submit" class="btn btn-primary">Add Material</button>        
+                <button type="submit" class="btn btn-primary">Add Material</button>
             </div>
         </form>
     </div>

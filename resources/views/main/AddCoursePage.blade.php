@@ -39,7 +39,7 @@
                 <button type="submit" name="add_topic" value="1" class="btn btn-secondary mt-2">Add Topic</button>
             </div>
             <div class="d-flex justify-content-center mb-3">
-                <button type="submit" class="btn btn-primary">Add Course</button>        
+                <button type="submit" class="btn btn-primary">Add Course</button>
             </div>   
         </form>
     </div>

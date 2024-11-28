@@ -16,7 +16,7 @@ class OnlyLecturer
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check() && Auth::user()->role_id != 3){
+        if((Auth::check() && Auth::user()->role_id != 3) || !Auth::check()){
             return redirect()->route('homePage.view');
         }
         return $next($request);

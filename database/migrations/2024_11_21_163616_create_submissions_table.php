@@ -17,13 +17,13 @@ return new class extends Migration
             $table->foreignId('student_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('file_name'); // hanya bisa pakai file
             $table->date('submit_date');
+            $table->integer('attempt_number')->default(1);
             // secara default statusnya Waiting To Be Assessed - menunggu diperiksa
             // status lain, Assessed - sudah dinilai.
             $table->string('status')->default('Waiting To Be Assessed');
             $table->double('score')->nullable();
             $table->timestamps();
-            $table->unique(['assignment_id', 'student_id']); // 1 assignment 1 submission (kalau kumpul ulang file lama ditimpak)
-
+            $table->unique(['assignment_id', 'student_id']);
         });
     }
 

@@ -56,4 +56,5 @@
             </tbody>
         </table>
     </div>
+    @include('component.WhiteSpace')
 @endsection

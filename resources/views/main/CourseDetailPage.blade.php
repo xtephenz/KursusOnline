@@ -18,6 +18,7 @@
             @endif    
             <div class="d-flex flex-column">
                 <span class="fw-semibold">{{$course->lecturer->name}}</span>
+                <small class="text-muted"><a href="mailto:{{$course->lecturer->email}}">{{$course->lecturer->email}}</a></small>
                 <small class="text-muted">Lecturer</small>
             </div>
         </div>
@@ -27,18 +28,19 @@
         @if (request()->routeIs('courseDetailPage.view'))
             @if ($topic != null)
                 @include('component.TopicsTabs', ['topics' => $course->topics, 'course' => $course])
-                @include('component.TopicDetailTab', ['topic' => $topic])
+                @include('component.TopicTabDetail', ['topic' => $topic])
             @else
                 TBA
             @endif
         @endif
         {{-- Assignment Tab --}}
         @if (request()->routeIs('courseDetailPage.assignment'))
-            @include('component.AssignmentCard', ['assignments' => $assignments])
+            @include('component.AssignmentTabDetail', ['course' => $course, 'assignments' => $assignments])
         @endif
         {{-- Student Tab --}}
         @if (request()->routeIs('courseDetailPage.student'))
-            @include('component.StudentList', ['students' => $students])
+            @include('component.StudentTabDetail', ['students' => $students])
         @endif
+        @include('component.WhiteSpace')
     </div>
 @endsection

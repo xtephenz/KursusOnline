@@ -14,9 +14,9 @@ class RestrictAdminFromHomePage
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $restricted_role_id): Response
+    public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check() && Auth::user()->role_id == $restricted_role_id){
+        if(Auth::check() && Auth::user()->role_id == 1){
             return redirect()->route('coursesPage.view');
         }
         return $next($request);

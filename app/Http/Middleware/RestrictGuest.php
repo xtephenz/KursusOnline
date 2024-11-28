@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class RestrictGuestFromEnrolling
+class RestrictGuest
 {
     /**
      * Handle an incoming request.
@@ -16,8 +16,8 @@ class RestrictGuestFromEnrolling
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!Auth::check()){
-            return redirect()->back()->with('fail', 'Please login first!');
+        if (!Auth::check()) {
+            return redirect()->route('loginPage.view');
         }
         return $next($request);
     }

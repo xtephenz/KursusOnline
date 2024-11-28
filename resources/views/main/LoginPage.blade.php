@@ -25,7 +25,7 @@
                 <label class="form-check-label" for="remember_me">Remember Me?</label>
             </div>
             <div class="d-flex justify-content-center mb-3">
-                <button type="submit" class="btn btn-primary">Login</button>        
+                <button type="submit" class="btn btn-primary">Login</button>
             </div>
         </form>
         <p class="text-center">

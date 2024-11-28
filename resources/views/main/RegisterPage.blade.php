@@ -83,7 +83,7 @@
                 @enderror
             </div>
             <div class="d-flex justify-content-center mb-3">
-                <button type="submit" class="btn btn-primary">Register</button>        
+                <button type="submit" class="btn btn-primary">Register</button>
             </div>   
         </form>
         <p class="text-center">

@@ -82,7 +82,15 @@ class CourseController extends Controller
     public function viewAssignmentTab($course_id)
     {
         $course = Course::with('lecturer', 'enrollments', 'topics', 'assignments')->find($course_id);
-        $assignments = $course->assignments;
+        $assignments = $course->assignments()->orderBy('start_date')->orderBy('due_date')->get();
+        // cek apakah due_date sudah lewat, kalau udah, langsung ganti status jadi Expired
+        foreach ($assignments as $assignment) {
+            if ($assignment->status === 'On Going' && $assignment->due_date < now()) {
+                $assignment->status = 'Expired';
+                $assignment->save();
+            }
+        }
+        
         return view('main.CourseDetailPage', ['course' => $course, 'assignments' => $assignments]);
     }
 
@@ -128,5 +136,11 @@ class CourseController extends Controller
             ]);
         }
         return redirect()->route('coursesPage.view')->with('success', 'New course has been added!');
+    }
+
+    public function viewAddAssignmentPage($course_id)
+    {
+        $course = Course::with('lecturer', 'enrollments', 'topics', 'assignments')->find($course_id);
+        return view('main.AddAssignmentPage', ['course' => $course]);
     }
 }

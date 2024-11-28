@@ -11,15 +11,25 @@ class Assignment extends Model
 {
     use HasFactory;
 
+    protected $dates = ['start_date', 'due_date'];
+
     protected $fillable = [
         'title',
         'file_name',
         'start_date',
-        'due date',
+        'due_date',
         'attempts',
         'status',
         'course_id'
     ];
+
+    protected function casts() : array
+    {
+        return [
+            'start_date' => 'date: j F Y',
+            'due_date' => 'date: j F Y'
+        ];
+    }
 
     public function course(): BelongsTo
     {

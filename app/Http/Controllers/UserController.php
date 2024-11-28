@@ -84,14 +84,9 @@ class UserController extends Controller
         return view('main.AddCoursePage', ['lecturers' => $lecturers]);
     }
 
-    public function viewProfilePage($user_id)
+    public function updateProfile(Request $request)
     {
-        $user = User::with('role', 'enrollments', 'courses', 'submissions')->find($user_id);
-        return view('main.ProfilePage', ['user' => $user]);
-    }
-
-    public function updateProfile($user_id, Request $request)
-    {
+        $user_id = Auth::user()->id;
         $user = User::with('role', 'enrollments', 'courses', 'submissions')->find($user_id);
 
         $request->validate([
@@ -114,8 +109,9 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-    public function deletePhoto($user_id)
+    public function deletePhoto()
     {
+        $user_id = Auth::user()->id;
         $user = User::with('role', 'enrollments', 'courses', 'submissions')->find($user_id);
         Storage::disk('public')->delete($user->photo);
         $user->photo = null;
@@ -123,8 +119,9 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-    public function changePassword($user_id, Request $request)
+    public function changePassword(Request $request)
     {
+        $user_id = Auth::user()->id;
         $user = User::with('role', 'enrollments', 'courses', 'submissions')->find($user_id);
         
         $request->validate([

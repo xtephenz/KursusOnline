@@ -37,4 +37,6 @@
             </div>
         @endif
     </div>
+    @include('component.WhiteSpace')
+    @include('component.WhiteSpace')
 @endsection

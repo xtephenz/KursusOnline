@@ -1,5 +1,4 @@
 @extends('layout.master')
-
 @section('content')
     <div class="row mx-5 mt-2">
         <div class="col-12">

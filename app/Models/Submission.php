@@ -10,14 +10,24 @@ class Submission extends Model
 {
     use HasFactory;
 
+    protected $dates = ['submit_date'];
+
     protected $fillable = [
         'file_name',
         'submit_date',
+        'attempt_number',
         'status',
         'score',
         'assignment_id',
         'student_id'
     ];
+
+    protected function casts() : array
+    {
+        return [
+            'submit_date' => 'date: j F Y',
+        ];
+    }
 
     public function student(): BelongsTo
     {

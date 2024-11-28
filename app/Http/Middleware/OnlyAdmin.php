@@ -16,7 +16,7 @@ class OnlyAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check() && Auth::user()->role_id != 1){
+        if((Auth::check() && Auth::user()->role_id != 1) || !Auth::check()){
             return redirect()->route('homePage.view');
         }
         return $next($request);

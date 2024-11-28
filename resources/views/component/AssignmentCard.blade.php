@@ -1,4 +1,4 @@
-<div class="container d-flex flex-column align-items-center gap-2">
+<div class="container d-flex flex-column align-items-start gap-2">
     @php
         $coursesPerRow = 3;
     @endphp
@@ -9,11 +9,32 @@
             @endif
             <div class="card" style="width: 20rem;">
                 <div class="card-body d-flex flex-column gap-1">
-                    <h5 class="card-title">{{ $assignments[$i]->title }}</h5>
-                    Due: {{$assignments[$i]->due_date}}
-                    Status: {{$assignments[$i]->status}}
+                    <div class="d-flex flex-row justify-content-between">
+                        <h5 class="card-title">{{ $assignments[$i]->title }}</h5>
+                        @if (Auth::user()->role_id == 2)
+                            @if ($assignments[$i]->submissions->where('student_id', Auth::user()->id)->where('attempt_number', '>=', 1)->isNotEmpty())
+                                <img src="{{ asset('DoneIcon.png') }}" alt="Done Icon" width="30px">
+                            @endif                
+                        @endif
+                    </div>
+                    <div class="d-flex flex-column">
+                        <div>
+                            Start: {{$assignments[$i]->start_date->format('j F Y')}}
+                        </div>
+                        <div>
+                            Due: {{$assignments[$i]->due_date->format('j F Y')}}
+                        </div>
+                        <div>
+                            Status: {{$assignments[$i]->status}}
+                        </div>
+                        @if (Auth::user()->role_id == 3)
+                            <div>
+                                Submissions: <a href="{{ route('assignmentDetailPage.view', ['assignment_id' => $assignments[$i]->id]) }}">{{count($assignments[$i]->submissions)}}</a>
+                            </div>
+                        @endif
+                    </div>
                     <div class="mt-auto">
-                        <a href="{{ route('enrollmentPage.view', $courses[$i]->id) }}" class="btn btn-primary">Show Details...</a>
+                        <a href="{{ route('assignmentDetailPage.view', ['assignment_id' => $assignments[$i]->id]) }}" class="btn btn-primary">View Assignment</a>
                     </div>
                 </div>
             </div>

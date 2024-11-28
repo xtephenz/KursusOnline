@@ -6,6 +6,7 @@ use App\Models\Material;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class MaterialController extends Controller
 {
@@ -22,7 +23,7 @@ class MaterialController extends Controller
             'material' => 'required|file|max:10000'
         ]);
         
-        $material = $request->material->store('materials', 'public');
+        $material = $request->material->store('materials', 'local');
 
         Material::create([
             'topic_id' => $topic_id,
@@ -37,9 +38,17 @@ class MaterialController extends Controller
     public function downloadMaterial($material_id)
     {
         $material = Material::with('topic')->find($material_id);
-        $file_path = public_path('storage/'.$material->file_name);
+        $file_path = $file_path = Storage::disk('local')->path($material->file_name);
         $file_extension = File::extension($file_path);
         $saving_name = $material->title.'.'.$file_extension;
         return response()->download($file_path, $saving_name);
+    }
+
+    public function deleteMaterial($material_id)
+    {
+        $material = Material::with('topic')->find($material_id);
+        Storage::disk('public')->delete($material->file_name);
+        $material->delete();
+        return redirect()->back();
     }
 }
