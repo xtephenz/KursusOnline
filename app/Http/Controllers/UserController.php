@@ -75,7 +75,7 @@ class UserController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('homePage.view');
+        return redirect()->route('loginPage.view');
     }
 
     public function viewAddCoursePage()

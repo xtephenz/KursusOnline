@@ -1,6 +1,11 @@
 @extends('layout.master')
 @section('content')
     <div class="container mb-3 mt-4" style="width: 450px; border: 2px solid black; border-radius: 10px">
+        <div class="position-relative">
+            <a href="{{ route('loginPage.view') }}" class="position-absolute" style="left: 0;">
+                <img src="{{ asset('BackArrow.png') }}" alt="Back Arrow" style="width: 25px;">
+            </a>
+        </div>
         <h4 class="text-center mt-2">Register</h4>
         <form class="p-3" action="{{ route('registerPage.register') }}" method="post">
             @csrf

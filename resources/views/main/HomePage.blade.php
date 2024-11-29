@@ -1,6 +1,11 @@
 @extends('layout.master')
 @section('content')
     <div class="container my-2">
+        @if(Auth::check())
+            <h5 class="text-end">Welcome, {{ Auth::user()->name }}</h5>
+        @else
+            <h5 class="text-end">Welcome to Kursus Online!</h5>
+        @endif
         {{-- Add Hero Section --}}
         @if (Auth::check())
             @if (Auth::user()->role_id == 2)

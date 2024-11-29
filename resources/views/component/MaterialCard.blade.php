@@ -8,14 +8,32 @@
                     <h6>{{ $material->title }}</h6>
                     <div class="d-flex align-items-center">
                         <a href="{{ route('material.download', ['material_id' => $material->id]) }}"><img src="{{ asset('DownloadIcon.png') }}" alt="" width="30px"></a>
-                        @if (Auth::check() && Auth::user()->role_id == 3)
-                            <form action="{{ route('material.delete', ['material_id' => $material->id]) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" style="border: none; background: none; padding: 0;">
-                                    <img src="{{ asset('DeleteIcon.png') }}" alt="Delete Icon" width="30px">
-                                </button>
-                            </form>
+                        @if (Auth::check() && Auth::user()->role_id != 2)
+                            <button type="submit" style="border: none; background: none; padding: 0;" data-bs-toggle="modal" data-bs-target="#deleteMaterialModal">
+                                <img src="{{ asset('DeleteIcon.png') }}" alt="Delete Icon" width="30px">
+                            </button>
+                            <div class="modal fade" id="deleteMaterialModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to delete this material?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <form action="{{ route('material.delete', ['material_id' => $material->id]) }}" method="POST" id="confirmDeleteForm">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input type="hidden" name="delete_action" id="deleteAction">
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
                         @endif
                     </div>
                 </div>

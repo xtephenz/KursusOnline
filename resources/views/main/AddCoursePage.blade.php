@@ -1,6 +1,11 @@
 @extends('layout.master')
 @section('content')
     <div class="container mb-3 mt-4" style="width: 450px; border: 2px solid black; border-radius: 10px">
+        <div class="position-relative">
+            <a href="{{ route('coursesPage.view') }}" class="position-absolute" style="left: 0;">
+                <img src="{{ asset('BackArrow.png') }}" alt="Back Arrow" style="width: 25px;">
+            </a>
+        </div>
         <h4 class="text-center mt-2">Add New Course</h4>
         <form class="p-3" action="{{ route('addCoursePage.add') }}" method="post">
             @csrf
@@ -16,7 +21,7 @@
             <div class="mb-3">
                 <label for="lecturer" class="form-label">Lecturer</label>
                 <select name="lecturer" id="lecturer" class="form-select" aria-label="Default select example">
-                    {{-- <option value="">-- Select a Lecturer --</option> --}}
+                    <option value="">-- Select a Lecturer --</option>
                     @foreach ($lecturers as $lecturer)
                         <option value="{{$lecturer->id}}" {{ old('lecturer') == $lecturer->id ? 'selected' : '' }}>{{$lecturer->name}}</option>
                     @endforeach

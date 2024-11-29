@@ -23,10 +23,12 @@
                     <a class="nav-link active" href="{{ route('aboutUsPage.view') }}">About Us</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            @if (!Auth::check() || (Auth::check() && Auth::user()->role_id != 3))
+                <form class="d-flex" action="{{ route('search') }}" method="get" role="search">
+                    <input class="form-control me-2" type="search" name="query" placeholder="Search course by name, lecturer, or topic" aria-label="Search" value="{{ request('query') }}" style="width: 350px">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            @endif
         </div>
         <div class="ms-2">
             @if (!Auth::check())

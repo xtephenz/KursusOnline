@@ -82,10 +82,18 @@
             @if (Auth::check() && Auth::user()->role_id == 2)
                 <hr>
                 <div class="d-flex justify-content-end">
-                    @if ($submission == null)
-                        <a href="{{ route('submissionPage.view', ['assignment_id' => $assignment->id]) }}" class="btn btn-primary mb-3">Start Attempt (1)</a>
-                    @else
-                        <a href="{{ route('submissionPage.view', ['assignment_id' => $assignment->id]) }}" class="btn btn-primary mb-3">Start Attempt ({{$submission->attempt_number + 1}})</a>
+                    @if ($assignment->status == "On Going")
+                        @if ($submission == null)
+                            <a href="{{ route('submissionPage.view', ['assignment_id' => $assignment->id]) }}" class="btn btn-primary mb-3">Start Attempt (1)</a>
+                        @else
+                            <a href="{{ route('submissionPage.view', ['assignment_id' => $assignment->id]) }}" class="btn btn-primary mb-3">Start Attempt ({{$submission->attempt_number + 1}})</a>
+                        @endif
+                    @elseif($assignment->status == "Expired")
+                        @if ($submission == null)
+                            <a href="#" class="btn btn-primary disabled mb-3" aria-disabled="true">Start Attempt (1)</a>
+                        @else
+                            <a href="#" class="btn btn-primary disabled mb-3" aria-disabled="true">Start Attempt ({{$submission->attempt_number + 1}})</a>
+                        @endif
                     @endif
                 </div>
             @endif

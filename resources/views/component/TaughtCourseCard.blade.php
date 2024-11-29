@@ -17,14 +17,14 @@
                             <img src="{{ asset('EmptyProfile.png') }}" alt="Default profile picture" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
                         @endif    
                         <div class="d-flex flex-column">
-                            <span class="fw-semibold">{{$courses[$i]->lecturer->name}}</span>
+                            <span style="font-size: 18.5px">{{$courses[$i]->lecturer->name}}</span>
                             <small class="text-muted">Lecturer</small>
                         </div>
                     </div>
                     <div>
                         Student(s): <a href="{{ route('courseDetailPage.student', ['course_id'=>$courses[$i]->id]) }}">{{$courses[$i]->enrollments->where('status', 'Active')->count()}}</a>
                     </div>
-                    <div class="mt-auto">
+                    <div class="mt-1">
                         <a href="{{ route('courseDetailPage.view', ['course_id'=>$courses[$i]->id]) }}" class="btn btn-primary">View Course</a>
                     </div>
                 </div>

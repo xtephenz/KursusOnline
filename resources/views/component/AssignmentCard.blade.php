@@ -18,19 +18,11 @@
                         @endif
                     </div>
                     <div class="d-flex flex-column">
-                        <div>
-                            Start: {{$assignments[$i]->start_date->format('j F Y')}}
-                        </div>
-                        <div>
-                            Due: {{$assignments[$i]->due_date->format('j F Y')}}
-                        </div>
-                        <div>
-                            Status: {{$assignments[$i]->status}}
-                        </div>
+                        <div>Start: {{$assignments[$i]->start_date->format('j F Y')}}</div>
+                        <div>Due: {{$assignments[$i]->due_date->format('j F Y')}}</div>
+                        <div>Status: {{$assignments[$i]->status}}</div>
                         @if (Auth::user()->role_id == 3)
-                            <div>
-                                Submissions: <a href="{{ route('assignmentDetailPage.view', ['assignment_id' => $assignments[$i]->id]) }}">{{count($assignments[$i]->submissions)}}</a>
-                            </div>
+                            <div>Submissions: <a href="{{ route('assignmentDetailPage.view', ['assignment_id' => $assignments[$i]->id]) }}">{{count($assignments[$i]->submissions)}}</a></div>
                         @endif
                     </div>
                     <div class="mt-auto">

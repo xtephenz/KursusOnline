@@ -2,10 +2,10 @@
     @php
         $coursesPerRow = 3;
     @endphp
-    <div class="row gap-3 my-1">
+    <div class="row gap-3">
         @for ($i = 0; $i < count($courses); $i++)         
             @if ($i % $coursesPerRow == 0 && $i != 0)
-                </div><div class="row gap-3 my-1">
+                </div><div class="row gap-3">
             @endif
             <div class="card" style="width: 25rem;">
                 <div class="card-body d-flex flex-column gap-1">
@@ -17,17 +17,17 @@
                             <img src="{{ asset('EmptyProfile.png') }}" alt="Default profile picture" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
                         @endif    
                         <div class="d-flex flex-column">
-                            <span class="fw-semibold">{{$courses[$i]->lecturer->name}}</span>
+                            <span style="font-size: 18.5px">{{$courses[$i]->lecturer->name}}</span>
                             <small class="text-muted">Lecturer</small>
                         </div>
                     </div>
-                    @if (!Auth::check() || Auth::user()->role_id == 2)
-                        <div class="mt-auto">
-                            <a href="{{ route('enrollmentPage.view', $courses[$i]->id) }}" class="btn btn-primary">Show Details...</a>
-                        </div>
-                    @elseif (Auth::user()->role_id == 1)
-                        <div class="mt-auto">
+                    @if ((Auth::user()->role_id == 2 && Auth::user()->enrollments->where('course_id', $courses[$i]->id)->first()) || Auth::user()->role_id == 1)
+                        <div class="mt-1">
                             <a href="{{ route('courseDetailPage.view', $courses[$i]->id) }}" class="btn btn-primary">View Course</a>
+                        </div>
+                    @else
+                        <div class="mt-1">
+                            <a href="{{ route('enrollmentPage.view', $courses[$i]->id) }}" class="btn btn-primary">Show Details...</a>
                         </div>
                     @endif
                 </div>
