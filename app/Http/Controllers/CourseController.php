@@ -113,7 +113,12 @@ class CourseController extends Controller
         foreach ($activeEnrollments as $enrollment) {
             $activeStudents->push($enrollment->student);
         }
-        return view('main.CourseDetailPage', ['course' => $course, 'activeStudents' => $activeStudents]);
+        $finishedEnrollments = $course->enrollments()->where('status', 'Finished')->get();
+        $finishedStudents = collect();
+        foreach ($finishedEnrollments as $enrollment) {
+            $finishedStudents->push($enrollment->student);
+        }
+        return view('main.CourseDetailPage', ['course' => $course, 'activeStudents' => $activeStudents, 'finishedStudents' => $finishedStudents]);
     }
 
     public function addNewCourse(Request $request)

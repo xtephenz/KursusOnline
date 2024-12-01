@@ -87,7 +87,7 @@
         @endif
         {{-- Student Tab --}}
         @if (request()->routeIs('courseDetailPage.student'))
-            @include('component.StudentTabDetail', ['course' => $course, 'activeStudents' => $activeStudents])
+            @include('component.StudentTabDetail', ['course' => $course, 'activeStudents' => $activeStudents, 'finishedStudents' => $finishedStudents])
         @endif
         @include('component.WhiteSpace')
     </div>

@@ -24,6 +24,9 @@
                     <div>
                         Student(s): <a href="{{ route('courseDetailPage.student', ['course_id'=>$courses[$i]->id]) }}">{{$courses[$i]->enrollments->where('status', 'Active')->count()}}</a>
                     </div>
+                    <div>
+                        Finsihed Student(s): <a href="{{ route('courseDetailPage.student', ['course_id'=>$courses[$i]->id]) }}">{{$courses[$i]->enrollments->where('status', 'Finished')->count()}}</a>
+                    </div>
                     <div class="mt-1">
                         <a href="{{ route('courseDetailPage.view', ['course_id'=>$courses[$i]->id]) }}" class="btn btn-primary">View Course</a>
                     </div>
