@@ -1,15 +1,27 @@
 @extends('layout.master')
 @section('content')
     <div class="container my-2">
+        @if(Auth::check())
+            <h5 class="text-end">Welcome, {{ Auth::user()->name }}</h5>
+        @else
+            <h5 class="text-end">Welcome to Kursus Online!</h5>
+        @endif
         {{-- Add Hero Section --}}
         @if (Auth::check())
             @if (Auth::user()->role_id == 2)
                 <div class="d-flex flex-column gap-4">
-                    @if ($enrolledCourses->isNotEmpty())
+                    @if ($finishedCourses->isNotEmpty())
                         <div class="container">
                             {{-- show course that is enrolled --}}
-                            <h4>Enrolled Courses</h4>
-                            @include('component.EnrolledCourseCard', ['courses' => $enrolledCourses])
+                            <h4>Finished Courses</h4>
+                            @include('component.FinishedCourseCard', ['courses' => $finishedCourses])
+                        </div>
+                    @endif
+                    @if ($activeCourses->isNotEmpty())
+                        <div class="container">
+                            {{-- show course that is enrolled --}}
+                            <h4>Active Courses</h4>
+                            @include('component.ActiveCourseCard', ['courses' => $activeCourses])
                         </div>
                     @endif
                 </div>

@@ -1,6 +1,11 @@
 @extends('layout.master')
 @section('content')
     <div class="container mb-3 mt-4" style="width: 450px; border: 2px solid black; border-radius: 10px">
+        <div class="position-relative">
+            <a href="{{ route('homePage.view') }}" class="position-absolute" style="left: 0;">
+                <img src="{{ asset('BackArrow.png') }}" alt="Back Arrow" style="width: 25px;">
+            </a>
+        </div>
         <h4 class="text-center mt-2">Change Password</h4>
         @if (session('success'))
             <div class="alert alert-success mt-3 mx-2">{{session('success')}}</div>

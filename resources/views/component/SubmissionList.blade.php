@@ -7,7 +7,9 @@
             <th>Photo</th>
             <th>Submission</th>
             <th>Submit At</th>
-            <th></th>
+            <th>Total Attempt</th>
+            <th>Score</th>
+            <th>Action</th>
         </thead>
         <tbody>
             @if ($submissions->isNotEmpty())
@@ -26,12 +28,26 @@
                         </td>
                             <td><a href="{{ route('submission.download', ['submission_id' => $submissions[$i]->id]) }}"><img src="{{ asset('DownloadIcon.png') }}" alt="" width="30px"></a></td>
                         <td>{{$submissions[$i]->submit_date->format('j F Y')}}</td>
-                        <td><a href="">Score</a></td>
+                        <td>{{$submissions[$i]->attempt_number}}</td>
+                        <td>
+                            @if ($submissions[$i]->score != null)
+                                {{$submissions[$i]->score}}
+                            @else
+                                N/A
+                            @endif
+                        </td>
+                        <td>
+                            @if ($submissions[$i]->score != null)
+                                <a href="{{ route('scoringPage.view', ['submission_id' => $submissions[$i]->id]) }}">Edit Score</a>
+                            @else
+                                <a href="{{ route('scoringPage.view', ['submission_id' => $submissions[$i]->id]) }}">Score</a>
+                            @endif
+                        </td>
                     </tr>
                 @endfor
             @else
                 <tr>
-                    <td colspan="6">
+                    <td colspan="8">
                         <h5 class="text-center text-danger">No Submission Yet!</h5>
                     </td>
                 </tr>

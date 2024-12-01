@@ -17,13 +17,25 @@
                             <img src="{{ asset('EmptyProfile.png') }}" alt="Default profile picture" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
                         @endif    
                         <div class="d-flex flex-column">
-                            <span class="fw-semibold">{{$courses[$i]->lecturer->name}}</span>
+                            <span style="font-size: 18.5px">{{$courses[$i]->lecturer->name}}</span>
                             <small class="text-muted">Lecturer</small>
                         </div>
                     </div>
-                    <div class="mt-auto">
-                        <a href="{{ route('courseDetailPage.view', $courses[$i]->id) }}" class="btn btn-primary">View Course</a>
-                    </div>
+                    @if ((Auth::user()->role_id == 2 && Auth::user()->enrollments->where('course_id', $courses[$i]->id)->first()) || Auth::user()->role_id == 1)
+                        @if (Auth::user()->enrollments->where('course_id', $courses[$i]->id)->where('status', 'Finished')->first())
+                            <div class="mt-1">
+                                <a href="{{ route('finalScorePage.view', $courses[$i]->id) }}" class="btn btn-primary">View Final Score</a>
+                            </div>
+                        @else
+                            <div class="mt-1">
+                                <a href="{{ route('courseDetailPage.view', $courses[$i]->id) }}" class="btn btn-primary">View Course</a>
+                            </div>
+                        @endif
+                    @else
+                        <div class="mt-1">
+                            <a href="{{ route('enrollmentPage.view', $courses[$i]->id) }}" class="btn btn-primary">Show Details...</a>
+                        </div>
+                    @endif
                 </div>
             </div>
         @endfor
