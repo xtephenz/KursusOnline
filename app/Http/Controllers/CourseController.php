@@ -15,7 +15,8 @@ class CourseController extends Controller
     public function viewHomePage()
     {
         $allCourses = collect();
-        $enrolledCourses = collect();
+        $activeCourses = collect();
+        $finishedCourses = collect();
         $taughtCourses = collect();
         // kalau user sudah login
         if(Auth::check()){
@@ -23,9 +24,13 @@ class CourseController extends Controller
             // tampilkan sesuai role masing-masing
             if($role_id == 2){
                 $student = Auth::user();
-                $enrollments = $student->enrollments;
-                foreach ($enrollments as $enrollment){
-                    $enrolledCourses->push($enrollment->course);
+                $activeEnrollments = $student->enrollments->where('status', 'Active');
+                foreach ($activeEnrollments as $enrollment){
+                    $activeCourses->push($enrollment->course);
+                }
+                $finishedEnrollments = $student->enrollments->where('status', 'Finished');
+                foreach ($finishedEnrollments as $enrollment){
+                    $finishedCourses->push($enrollment->course);
                 }
             }
             else if($role_id == 3){
@@ -37,7 +42,7 @@ class CourseController extends Controller
         else{
             $allCourses = Course::with('lecturer', 'enrollments', 'topics', 'assignments')->orderBy('name')->paginate(9);
         }
-        return view('main.HomePage', compact('allCourses', 'enrolledCourses', 'taughtCourses'));
+        return view('main.HomePage', compact('allCourses', 'activeCourses', 'finishedCourses', 'taughtCourses'));
     }
 
     public function viewEnrollmentPage($course_id)
@@ -88,6 +93,10 @@ class CourseController extends Controller
         $assignments = $course->assignments()->orderBy('start_date')->orderBy('due_date')->get();
         // cek apakah due_date sudah lewat, kalau udah, langsung ganti status jadi Expired
         foreach ($assignments as $assignment) {
+            if($assignment->status === 'Coming Soon' && $assignment->start_date <= now()){
+                $assignment->status = 'On Going';
+                $assignment->save();
+            }
             if ($assignment->status === 'On Going' && $assignment->due_date < now()) {
                 $assignment->status = 'Expired';
                 $assignment->save();
@@ -99,12 +108,12 @@ class CourseController extends Controller
     public function viewStudentTab($course_id)
     {
         $course = Course::with('lecturer', 'enrollments', 'topics', 'assignments')->find($course_id);
-        $enrollments = $course->enrollments()->where('status', 'Active')->get();
-        $enrolledStudents = collect();
-        foreach ($enrollments as $enrollment) {
-            $enrolledStudents->push($enrollment->student);
+        $activeEnrollments = $course->enrollments()->where('status', 'Active')->get();
+        $activeStudents = collect();
+        foreach ($activeEnrollments as $enrollment) {
+            $activeStudents->push($enrollment->student);
         }
-        return view('main.CourseDetailPage', ['course' => $course, 'students' => $enrolledStudents]);
+        return view('main.CourseDetailPage', ['course' => $course, 'activeStudents' => $activeStudents]);
     }
 
     public function addNewCourse(Request $request)
@@ -209,6 +218,7 @@ class CourseController extends Controller
                     Storage::disk('local')->delete($submission->file_name);
                     $submission->delete();
                 });
+                Storage::disk('local')->delete($assignment->file_name);
                 $assignment->delete();
             });
             $course->delete();

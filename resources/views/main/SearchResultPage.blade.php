@@ -2,9 +2,9 @@
 @section('content')
     <div class="container my-2">
         @if ($allCourses->isNotEmpty())
-            <h4>"Course related to: {{$query}}"</h4>
+            <h4>"Course(s) related to: {{$query}}"</h4>
             <div class="container">
-                @include('component.CourseCard', ['courses' => $allCourses])
+                @include('component.SearchResultCourseCard', ['courses' => $allCourses])
                 <div class="my-1">
                     {{ $allCourses->appends(['query' => request()->input('query')])->links() }}
                 </div>

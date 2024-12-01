@@ -9,34 +9,36 @@
         </div>
         <div class="d-flex align-items-center gap-2">
             <h4>{{$course->name}}</h4>
-            <div class="d-flex align-items-center">
-                <a href="{{ route('editCoursePage.view', ['course_id' => $course->id]) }}"><img src="{{ asset('EditIcon.png') }}" alt="" width="30px"></a>
-                <button type="submit" style="border: none; background: none; padding: 0;" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                    <img src="{{ asset('DeleteIcon.png') }}" alt="Delete Icon" width="30px">
-                </button>
-                <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Are you sure you want to delete this course?</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <form action="{{ route('coursePage.delete', ['course_id' => $course->id]) }}" method="POST" id="confirmDeleteForm">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="hidden" name="delete_action" id="deleteAction">
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
+            @if (Auth::check() && Auth::user()->role_id == 1)
+                <div class="d-flex align-items-center">
+                    <a href="{{ route('editCoursePage.view', ['course_id' => $course->id]) }}"><img src="{{ asset('EditIcon.png') }}" alt="" width="30px"></a>
+                    <button type="submit" style="border: none; background: none; padding: 0;" data-bs-toggle="modal" data-bs-target="#deleteCourseModal">
+                        <img src="{{ asset('DeleteIcon.png') }}" alt="Delete Icon" width="30px">
+                    </button>
+                    <div class="modal fade" id="deleteCourseModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Are you sure you want to delete this course?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <form action="{{ route('courseDetailPage.delete', ['course_id' => $course->id]) }}" method="POST" id="confirmDeleteForm">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="delete_action" id="deleteAction">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div> 
-            </div>
+                    </div> 
+                </div>
+            @endif
         </div>       
         @if (session('success-update'))
             <div class="alert alert-success mt-3 mx-2">{{session('success-update')}}</div>
@@ -72,6 +74,11 @@
         @endif
         {{-- Assignment Tab --}}
         @if (request()->routeIs('courseDetailPage.assignment'))
+            @if (Auth::check() && Auth::user()->role_id == 3)
+                <div class="d-flex justify-content-start my-3">
+                    <a href="{{ route('addAssignmentPage.view', ['course_id' => $course->id]) }}" class="btn btn-primary">Add New Assignment</a>
+                </div>
+            @endif
             @if ($assignments->isNotEmpty())
                 @include('component.AssignmentTabDetail', ['course' => $course, 'assignments' => $assignments])
             @else
@@ -80,7 +87,7 @@
         @endif
         {{-- Student Tab --}}
         @if (request()->routeIs('courseDetailPage.student'))
-            @include('component.StudentTabDetail', ['students' => $students])
+            @include('component.StudentTabDetail', ['course' => $course, 'activeStudents' => $activeStudents])
         @endif
         @include('component.WhiteSpace')
     </div>

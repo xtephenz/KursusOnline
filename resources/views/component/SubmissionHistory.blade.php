@@ -16,7 +16,7 @@
                 <td>{{$submission->status}}</td>
                 <td>
                     @if ($submission->score == null)
-                        TBA
+                        N/A
                     @else
                         {{$submission->score}}
                     @endif

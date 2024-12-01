@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Assignment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -20,6 +21,12 @@ class AssignmentController extends Controller
             'due' => 'required|date|after:start'
         ]);
         $assignment = $request->assignment->store('assignments', 'local');
+        if($request->start > now()){
+            $status = 'Coming Soon';
+        }
+        else{
+            $status = 'On Going';
+        }
         Assignment::create([
             'course_id' => $course_id,
             'title' => $request->title,
@@ -27,6 +34,7 @@ class AssignmentController extends Controller
             'attempts' => $request->attempts ? $request->attempts : null,
             'start_date' => $request->start,
             'due_date' => $request->due,
+            'status' => $status
         ]);
         return redirect()->route('courseDetailPage.assignment', ['course_id' => $course_id])->with('success', 'New assignment has been added!');
     }
@@ -70,6 +78,12 @@ class AssignmentController extends Controller
             'start' => 'required|date|after_or_equal:today',
             'due' => 'required|date|after:start'
         ]);
+        if($request->start > now()){
+            $status = 'Coming Soon';
+        }
+        else{
+            $status = 'On Going';
+        }
         if($request->assignment != null){
             Storage::disk('local')->delete($assignment->file_name);
             $assignment->file_name = $request->assignment->store('assignments', 'local');
@@ -78,6 +92,7 @@ class AssignmentController extends Controller
         $assignment->attempts = $request->attempts;
         $assignment->start_date = $request->start;
         $assignment->due_date = $request->due;
+        $assignment->status = $status;
         $assignment->save();
         return redirect()->route('assignmentDetailPage.view', ['assignment_id' => $assignment_id])->with('success', 'Assignment has been updated!');
     }
@@ -90,5 +105,20 @@ class AssignmentController extends Controller
         $file_extension = File::extension($file_path);
         $display_name = $assignment->title.'.'.$file_extension;
         return view('main.SubmissionPage', ['assignment' => $assignment, 'file_name' => $display_name, 'submission' => $submission]);
+    }
+
+    public function deleteAssignment($assignment_id)
+    {
+        $assignment = Assignment::with('course', 'submissions')->find($assignment_id);
+        $course_id = $assignment->course->id;
+        DB::transaction(function () use ($assignment) {
+            $assignment->submissions->each(function ($submission) {
+                Storage::disk('local')->delete($submission->file_name);
+                $submission->delete();
+            });
+            Storage::disk('local')->delete($assignment->file_name);
+            $assignment->delete();
+        });
+        return redirect()->route('courseDetailPage.assignment', ['course_id' => $course_id])->with('success', 'Assignment has been deleted!');
     }
 }

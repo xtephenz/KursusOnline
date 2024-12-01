@@ -21,15 +21,9 @@
                             <small class="text-muted">Lecturer</small>
                         </div>
                     </div>
-                    @if (Auth::user()->role_id == 1)
-                        <div class="mt-1">
-                            <a href="{{ route('courseDetailPage.view', $courses[$i]->id) }}" class="btn btn-primary">View Course</a>
-                        </div>
-                    @else
-                        <div class="mt-1">
-                            <a href="{{ route('enrollmentPage.view', $courses[$i]->id) }}" class="btn btn-primary">Show Details...</a>
-                        </div>
-                    @endif
+                    <div class="mt-1">
+                        <a href="{{ route('finalScorePage.view', ['course_id' => $courses[$i]->id]) }}" class="btn btn-primary">View Final Score</a>
+                    </div>
                 </div>
             </div>
         @endfor

@@ -15,13 +15,42 @@
                 <div class="d-flex align-items-center gap-2">
                     <h2>{{$assignment->title}}</h2>
                     @if (Auth::check() && Auth::user()->role_id == 3)
-                        <a href="{{ route('editAssignmentPage.view', ['assignment_id' => $assignment->id]) }}"><img src="{{ asset('EditIcon.png') }}" alt="" width="20px"></a>
+                        <div class="d-flex justify-content-center">
+                            <a href="{{ route('editAssignmentPage.view', ['assignment_id' => $assignment->id]) }}"><img src="{{ asset('EditIcon.png') }}" alt="" width="30px"></a>
+                            <button type="submit" style="border: none; background: none; padding: 0;" data-bs-toggle="modal" data-bs-target="#deleteAssignmentModal">
+                                <img src="{{ asset('DeleteIcon.png') }}" alt="Delete Icon" width="30px">
+                            </button>
+                            <div class="modal fade" id="deleteAssignmentModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to delete this assignment?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <form action="{{ route('assignment.delete', ['assignment_id' => $assignment->id]) }}" method="POST" id="confirmDeleteForm">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input type="hidden" name="delete_action" id="deleteAction">
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
                     @endif
                 </div>
                 @if ($assignment->status == "On Going")
-                    <h1 class="btn mt-2" style="width: 100px; background-color: rgb(61, 155, 93); color:white; font-weight: 500; border-radius: 20px;">{{$assignment->status}}</h1>
+                    <h1 class="btn mt-2" style="background-color: rgb(61, 155, 93); color:white; font-weight: 500; border-radius: 20px;">{{$assignment->status}}</h1>
                 @elseif ($assignment->status == "Expired")
-                    <h1 class="btn mt-2" style="width: 100px; background-color: rgb(203, 45, 45); color:white; font-weight: 500; border-radius: 20px;">{{$assignment->status}}</h1>
+                    <h1 class="btn mt-2" style="background-color: rgb(203, 45, 45); color:white; font-weight: 500; border-radius: 20px;">{{$assignment->status}}</h1>
+                @elseif ($assignment->status == "Coming Soon")
+                    <h1 class="btn mt-2" style="background-color: rgb(220, 170, 32); color:white; font-weight: 500; border-radius: 20px;">{{$assignment->status}}</h1>
                 @endif
             </div>
             <div class="row">
@@ -86,7 +115,11 @@
                         @if ($submission == null)
                             <a href="{{ route('submissionPage.view', ['assignment_id' => $assignment->id]) }}" class="btn btn-primary mb-3">Start Attempt (1)</a>
                         @else
-                            <a href="{{ route('submissionPage.view', ['assignment_id' => $assignment->id]) }}" class="btn btn-primary mb-3">Start Attempt ({{$submission->attempt_number + 1}})</a>
+                            @if ($submission->attempt_number < $assignment->attempts || $assignment->attempts === null)
+                                <a href="{{ route('submissionPage.view', ['assignment_id' => $assignment->id]) }}" class="btn btn-primary mb-3">Start Attempt ({{$submission->attempt_number + 1}})</a>
+                            @else
+                                <a href="#" class="btn btn-primary disabled mb-3" aria-disabled="true">Start Attempt ({{$submission->attempt_number + 1}})</a>
+                            @endif
                         @endif
                     @elseif($assignment->status == "Expired")
                         @if ($submission == null)
@@ -94,6 +127,8 @@
                         @else
                             <a href="#" class="btn btn-primary disabled mb-3" aria-disabled="true">Start Attempt ({{$submission->attempt_number + 1}})</a>
                         @endif
+                    @elseif($assignment->status == "Coming Soon")
+                        <a href="#" class="btn btn-primary disabled mb-3" aria-disabled="true">Start Attempt (1)</a>
                     @endif
                 </div>
             @endif

@@ -19,7 +19,6 @@ Route::post('/login', [UserController::class, 'login'])->name('loginPage.login')
 Route::get('/logout', [UserController::class, 'logout'])->middleware('auth')->name('loginPage.logout');
 
 Route::get('/courses', [CourseController::class, 'viewCoursesPage'])->middleware('restrict.lecturer')->name('coursesPage.view');
-Route::delete('/course/{course_id}/delete', [CourseController::class, 'deleteCourse'])->middleware('only.admin')->name('coursePage.delete');
 
 Route::get('/search', [CourseController::class, 'searchCourse'])->name('search');
 
@@ -32,6 +31,8 @@ Route::put('/course/{course_id}/edit', [CourseController::class, 'editCourse'])-
 Route::get('/course-detail/{course_id}/topic/{topic_id?}', [CourseController::class, 'viewCourseDetailPage'])->middleware('auth')->name('courseDetailPage.view');
 Route::get('/course-detail/{course_id}/assignment', [CourseController::class, 'viewAssignmentTab'])->middleware('auth')->name('courseDetailPage.assignment');
 Route::get('/course-detail/{course_id}/student', [CourseController::class, 'viewStudentTab'])->middleware('auth')->name('courseDetailPage.student');
+
+Route::delete('/course/{course_id}/delete', [CourseController::class, 'deleteCourse'])->middleware('only.admin')->name('courseDetailPage.delete');
 
 Route::get('/course/{course_id}/topic/add', [CourseController::class, 'viewAddTopicPage'])->middleware('only.admin')->name('addTopicPage.view');
 Route::post('/course/{course_id}/topic/add', [TopicController::class, 'addNewTopics'])->middleware('only.admin')->name('addTopicPage.add');
@@ -59,11 +60,20 @@ Route::get('/assignment/{assignment_id}/submit', [AssignmentController::class, '
 Route::post('/assignment/{assignment_id}/submit', [SubmissionController::class, 'submitAssignment'])->middleware('only.student')->name('submissionPage.submit');
 
 Route::get('/assignment/{assignment_id}/download', [AssignmentController::class, 'downloadAssignment'])->middleware('auth')->name('assignment.download');
+Route::delete('/assignment/{assignment_id}/delete', [AssignmentController::class, 'deleteAssignment'])->middleware('only.lecturer')->name('assignment.delete');
 
-Route::get('submission/{submission_id}/download', [SubmissionController::class, 'downloadSubmission'])->middleware('only.lecturer')->name('submission.download');
+Route::get('/submission/{submission_id}/download', [SubmissionController::class, 'downloadSubmission'])->middleware('only.lecturer')->name('submission.download');
 
-Route::get('/courses/{course_id}/enroll', [CourseController::class, 'viewEnrollmentPage'])->middleware('auth')->name('enrollmentPage.view');
-Route::post('/courses/{course_id}/enroll', [EnrollmentController::class, 'enrollToCourse'])->middleware('auth')->name('enrollmentPage.enroll');
+Route::get('/submission/{submission_id}/scoring', [SubmissionController::class, 'viewScoringPage'])->middleware('only.lecturer')->name('scoringPage.view');
+Route::put('/submission/{submission_id}/scoring', [SubmissionController::class, 'scoreSubmission'])->middleware('only.lecturer')->name('scoringPage.score');
+
+Route::get('/course/{course_id}/enroll', [CourseController::class, 'viewEnrollmentPage'])->middleware('auth')->name('enrollmentPage.view');
+Route::post('/course/{course_id}/enroll', [EnrollmentController::class, 'enrollToCourse'])->middleware('auth')->name('enrollmentPage.enroll');
+
+Route::get('/course/{course_id}/enrollment/{student_id}/scoring', [EnrollmentController::class, 'viewFinalScoreSubmissionPage'])->middleware('only.lecturer')->name('finalScoreSubmissionPage.view');
+Route::put('/course/{course_id}/enrollment/{student_id}/scoring', [EnrollmentController::class, 'submitFinalScore'])->middleware('only.lecturer')->name('finalScoreSubmissionPage.submit');
+
+Route::get('/course/{course_id}/view-final-score', [EnrollmentController::class, 'viewFinalScorePage'])->middleware('only.student')->name('finalScorePage.view');
 
 Route::get('/about-us', function () {return view('main.AboutUsPage');})->name('aboutUsPage.view');
 

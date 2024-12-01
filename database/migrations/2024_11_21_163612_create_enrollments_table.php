@@ -20,7 +20,7 @@ return new class extends Migration
             // status = cancelled, kalau misalnya cancel enrollment
             // status = finished, kalau misalnya udah tamatkan course
             $table->string('status')->default('Active');
-            $table->double('grade')->nullable(); // nilai akhir untuk course yg dienroll oleh student
+            $table->double('final_score')->nullable(); // nilai akhir untuk course yg dienroll oleh student
             $table->timestamps();
         });
     }

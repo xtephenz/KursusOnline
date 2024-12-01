@@ -21,10 +21,16 @@
                             <small class="text-muted">Lecturer</small>
                         </div>
                     </div>
-                    @if (Auth::user()->role_id == 1)
-                        <div class="mt-1">
-                            <a href="{{ route('courseDetailPage.view', $courses[$i]->id) }}" class="btn btn-primary">View Course</a>
-                        </div>
+                    @if ((Auth::user()->role_id == 2 && Auth::user()->enrollments->where('course_id', $courses[$i]->id)->first()) || Auth::user()->role_id == 1)
+                        @if (Auth::user()->enrollments->where('course_id', $courses[$i]->id)->where('status', 'Finished')->first())
+                            <div class="mt-1">
+                                <a href="{{ route('finalScorePage.view', $courses[$i]->id) }}" class="btn btn-primary">View Final Score</a>
+                            </div>
+                        @else
+                            <div class="mt-1">
+                                <a href="{{ route('courseDetailPage.view', $courses[$i]->id) }}" class="btn btn-primary">View Course</a>
+                            </div>
+                        @endif
                     @else
                         <div class="mt-1">
                             <a href="{{ route('enrollmentPage.view', $courses[$i]->id) }}" class="btn btn-primary">Show Details...</a>
