@@ -4,16 +4,16 @@
         {{-- Judul --}}
         <div class="position-relative">
             <a href="{{ route('coursesPage.view') }}" style="left: 0;">
-                <img src="{{ asset('BackArrow.png') }}" alt="Back Arrow" style="width: 25px;">
+                <img src="{{ asset('images/BackArrow.png') }}" alt="Back Arrow" style="width: 25px;">
             </a>
         </div>
         <div class="d-flex align-items-center gap-2">
             <h4>{{$course->name}}</h4>
             @if (Auth::check() && Auth::user()->role_id == 1)
                 <div class="d-flex align-items-center">
-                    <a href="{{ route('editCoursePage.view', ['course_id' => $course->id]) }}"><img src="{{ asset('EditIcon.png') }}" alt="" width="30px"></a>
+                    <a href="{{ route('editCoursePage.view', ['course_id' => $course->id]) }}"><img src="{{ asset('images/EditIcon.png') }}" alt="" width="30px"></a>
                     <button type="submit" style="border: none; background: none; padding: 0;" data-bs-toggle="modal" data-bs-target="#deleteCourseModal">
-                        <img src="{{ asset('DeleteIcon.png') }}" alt="Delete Icon" width="30px">
+                        <img src="{{ asset('images/DeleteIcon.png') }}" alt="Delete Icon" width="30px">
                     </button>
                     <div class="modal fade" id="deleteCourseModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -48,7 +48,7 @@
             @if ($course->lecturer->photo)
                 <img src="{{ asset($course->lecturer->photo) }}" alt="Lecturer's photo" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
             @else
-                <img src="{{ asset('EmptyProfile.png') }}" alt="Default profile picture" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
+                <img src="{{ asset('images/EmptyProfile.png') }}" alt="Default profile picture" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
             @endif    
             <div class="d-flex flex-column">
                 <span class="fw-semibold">{{$course->lecturer->name}}</span>

@@ -8,7 +8,7 @@
             {{-- Photo --}}
             <div class="mb-3 d-flex flex-column align-items-center">
                 @if (Auth::user()->photo != null)
-                    <img src="{{ asset('storage/'.Auth::user()->photo) }}" alt="User's photo" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
+                    <img src="{{ Storage::disk('s3')->url(Auth::user()->photo) }}" alt="User's photo" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
                     <button type="button" class="btn btn-danger mt-2" data-bs-toggle="modal" data-bs-target="#deletePhotoModal">
                         Delete Photo
                     </button>
@@ -27,7 +27,6 @@
                                     <form action="{{ route('profilePage.delete') }}" method="POST" id="confirmDeleteForm">
                                         @csrf
                                         @method('DELETE')
-                                        <input type="hidden" name="delete_action" id="deleteAction">
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
                                 </div>
@@ -35,7 +34,7 @@
                         </div>
                     </div>
                 @else
-                    <img src="{{ asset('EmptyProfile.png') }}" alt="Default profile picture" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
+                    <img src="{{ asset('images/EmptyProfile.png') }}" alt="Default profile picture" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
                 @endif
             </div>
             {{-- Name --}}
@@ -62,9 +61,13 @@
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror
             </div> 
+            {{-- Photo --}}
             <div class="mb-3">
                 <label for="photo" class="form-label">Photo</label>
                 <input type="file" class="form-control" name="photo" id="photo">
+                @error('photo')
+                    <div class="alert alert-danger">{{$message}}</div>
+                @enderror
             </div>
             <div class="d-flex justify-content-center mb-3">
                 <button type="submit" class="btn btn-primary">Update Profile</button>        

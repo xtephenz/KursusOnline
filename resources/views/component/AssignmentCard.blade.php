@@ -19,7 +19,7 @@
                     <div class="d-flex justify-content-start align-items-center gap-2">
                         <h5 class="card-title my-0">{{ $assignments[$i]->title }}</h5>
                         @if (Auth::user()->role_id == 2 && $assignments[$i]->submissions->where('student_id', Auth::user()->id)->where('attempt_number', '>=', 1)->isNotEmpty())
-                            <img src="{{ asset('DoneIcon.png') }}" alt="Done Icon" style="width: 30px; height: 30px">
+                            <img src="{{ asset('images/DoneIcon.png') }}" alt="Done Icon" style="width: 30px; height: 30px">
                         @endif
                     </div>
                     <div class="d-flex flex-column">

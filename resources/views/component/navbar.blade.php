@@ -2,7 +2,7 @@
     <div class="container-fluid">
         {{-- ganti jadi logo --}}
         <a class="navbar-brand me-5" href="{{ route('homePage.view') }}">
-            <img src="{{ asset('Logo.png') }}" alt="" width="50px">
+            <img src="{{ asset('images/Logo.png') }}" alt="" width="50px">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -38,9 +38,9 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             @if (Auth::user()->photo != null)
-                                <img src="{{ asset('storage/'.Auth::user()->photo) }}" alt="User's photo" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                                <img src="{{ Storage::disk('s3')->url(Auth::user()->photo) }}" alt="User's photo" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
                             @else
-                                <img src="{{ asset('EmptyProfile.png') }}" alt="Default profile picture" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                                <img src="{{ asset('images/EmptyProfile.png') }}" alt="Default profile picture" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
                             @endif
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">

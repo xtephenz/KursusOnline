@@ -97,12 +97,13 @@ class UserController extends Controller
 
         $user->name = $request->name;
         $user->date_of_birth = $request->dob;
-
-        if($request->photo != null){
+        
+        if($request->hasFile('photo')){
             if($user->photo != null){
-                Storage::disk('public')->delete($user->photo);
+                Storage::disk('s3')->delete($user->photo);
+                $user->photo = null;
             }
-            $user->photo = $request->photo->store('users', 'public');
+            $user->photo = $request->photo->storePublicly('users');
         }
         $user->save();
 
@@ -113,7 +114,7 @@ class UserController extends Controller
     {
         $user_id = Auth::user()->id;
         $user = User::with('role', 'enrollments', 'courses', 'submissions')->find($user_id);
-        Storage::disk('public')->delete($user->photo);
+        Storage::disk('s3')->delete($user->photo);
         $user->photo = null;
         $user->save();
         return redirect()->back();

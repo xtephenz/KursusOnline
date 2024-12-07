@@ -59,7 +59,7 @@ class TopicController extends Controller
         $topic = Topic::with('course', 'materials')->find($topic_id);
         if($topic->materials != null){
             foreach ($topic->materials as $material) {
-                Storage::disk('local')->delete($material->file_name);
+                Storage::disk('s3')->delete($material->file_name);
             }
         }
         $topic->delete();

@@ -6,9 +6,9 @@
         <h4>{{$topic->title}}</h4>
         @if (Auth::check() && Auth::user()->role_id == 1)
         <div class="d-flex align-items-center">
-            <a href="{{ route('editTopicPage.view', ['topic_id' => $topic->id]) }}"><img src="{{ asset('EditIcon.png') }}" alt="" width="30px"></a>
+            <a href="{{ route('editTopicPage.view', ['topic_id' => $topic->id]) }}"><img src="{{ asset('images/EditIcon.png') }}" alt="" width="30px"></a>
             <button type="submit" style="border: none; background: none; padding: 0;" data-bs-toggle="modal" data-bs-target="#deleteTopicModal">
-                <img src="{{ asset('DeleteIcon.png') }}" alt="Delete Icon" width="30px">
+                <img src="{{ asset('images/DeleteIcon.png') }}" alt="Delete Icon" width="30px">
             </button>
             <div class="modal fade" id="deleteTopicModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                 <div class="modal-dialog">

@@ -17,10 +17,10 @@ class SubmissionController extends Controller
         $request->validate([
             'submission' => 'required|file|max:10000'
         ]);
-        $submission_file = $request->submission->store('submissions', 'local');
+        $submission_file = $request->submission->store('submissions');
         $submission = Submission::with('student', 'assignment')->where('assignment_id', $assignment_id)->where('student_id', $student_id)->first();
         if($submission != null){
-            Storage::disk('local')->delete($submission->file_name);
+            Storage::disk('s3')->delete($submission->file_name);
             $submission->file_name = $submission_file;
             $submission->attempt_number += 1;
             $submission->submit_date = now();
@@ -44,16 +44,17 @@ class SubmissionController extends Controller
     public function downloadSubmission($submission_id)
     {
         $submission = Submission::with('student', 'assignment')->find($submission_id);
-        $file_path = Storage::disk('local')->path($submission->file_name);
+        $file_path = $submission->file_name;
         $file_extension = File::extension($file_path);
         $saving_name = $submission->assignment->title.'_'.$submission->student->name.'_Answer'.'.'.$file_extension;
-        return response()->download($file_path, $saving_name);
+        $to_download = Storage::disk('s3')->get($file_path);
+        return response($to_download)->header('Content-Disposition', 'attachment; filename="' . $saving_name . '"');
     }
 
     public function viewScoringPage($submission_id)
     {
         $submission = Submission::with('student', 'assignment')->find($submission_id);
-        $file_path = Storage::disk('local')->path($submission->file_name);
+        $file_path = $submission->file_name;
         $file_name = basename($file_path);
         return view('main.ScoringPage', ['submission' => $submission, 'file_name' => $file_name]);
     }

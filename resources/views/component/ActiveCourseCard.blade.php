@@ -14,7 +14,7 @@
                         @if ($courses[$i]->lecturer->photo)
                             <img src="{{ asset($courses[$i]->lecturer->photo) }}" alt="Lecturer's photo" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
                         @else
-                            <img src="{{ asset('EmptyProfile.png') }}" alt="Default profile picture" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
+                            <img src="{{ asset('images/EmptyProfile.png') }}" alt="Default profile picture" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
                         @endif    
                         <div class="d-flex flex-column">
                             <span style="font-size: 18.5px">{{$courses[$i]->lecturer->name}}</span>

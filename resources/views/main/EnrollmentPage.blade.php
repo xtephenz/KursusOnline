@@ -3,7 +3,7 @@
     <div class="container mb-3 mt-4" style="border: 2px solid black; width: 510px; border-radius: 10px">
         <div class="position-relative">
             <a href="{{ url()->previous() }}" class="position-absolute" style="left: 0;">
-                <img src="{{ asset('BackArrow.png') }}" alt="Back Arrow" style="width: 25px;">
+                <img src="{{ asset('images/BackArrow.png') }}" alt="Back Arrow" style="width: 25px;">
             </a>
             <h4 class="text-center">{{$course->name}}</h4>
         </div>
@@ -18,7 +18,7 @@
                             @if ($course->lecturer->photo)
                                 <img src="{{ asset($course->lecturer->photo) }}" alt="Lecturer's photo" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
                             @else
-                                <img src="{{ asset('EmptyProfile.png') }}" alt="Default profile picture" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
+                                <img src="{{ asset('images/EmptyProfile.png') }}" alt="Default profile picture" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
                             @endif    
                             <div class="d-flex flex-column">
                                 <span class="fw-semibold">{{$course->lecturer->name}}</span>

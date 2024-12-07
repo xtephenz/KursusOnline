@@ -127,7 +127,7 @@ class CourseController extends Controller
         if ($request->has('add_topic')) {
             $topics = $request->input('topics', []);
             $topics[] = '';
-            return redirect()->back()->withInput(['topics' => $topics]);
+            return redirect()->back()->withInput(['topics' => $topics, 'name' => $request->name, 'lecturer' => $request->lecturer]);
         }
         $validated = $request->validate(
             [
@@ -212,7 +212,7 @@ class CourseController extends Controller
         DB::transaction(function () use ($course) {
             $course->topics->each(function ($topic) {
                 $topic->materials->each(function ($material) {
-                    Storage::disk('local')->delete($material->file_name);
+                    Storage::disk('s3')->delete($material->file_name);
                     $material->delete();
                 });
                 $topic->delete();
@@ -220,10 +220,10 @@ class CourseController extends Controller
             $course->enrollments->each->delete();
             $course->assignments->each(function ($assignment) {
                 $assignment->submissions->each(function ($submission) {
-                    Storage::disk('local')->delete($submission->file_name);
+                    Storage::disk('s3')->delete($submission->file_name);
                     $submission->delete();
                 });
-                Storage::disk('local')->delete($assignment->file_name);
+                Storage::disk('s3')->delete($assignment->file_name);
                 $assignment->delete();
             });
             $course->delete();

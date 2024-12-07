@@ -7,10 +7,10 @@
                 <div class="d-flex flex-row justify-content-between mb-2">
                     <h6>{{ $material->title }}</h6>
                     <div class="d-flex align-items-center">
-                        <a href="{{ route('material.download', ['material_id' => $material->id]) }}"><img src="{{ asset('DownloadIcon.png') }}" alt="" width="30px"></a>
+                        <a href="{{ route('material.download', ['material_id' => $material->id]) }}"><img src="{{ asset('images/DownloadIcon.png') }}" alt="" width="30px"></a>
                         @if (Auth::check() && Auth::user()->role_id != 2)
                             <button type="submit" style="border: none; background: none; padding: 0;" data-bs-toggle="modal" data-bs-target="#deleteMaterialModal">
-                                <img src="{{ asset('DeleteIcon.png') }}" alt="Delete Icon" width="30px">
+                                <img src="{{ asset('images/DeleteIcon.png') }}" alt="Delete Icon" width="30px">
                             </button>
                             <div class="modal fade" id="deleteMaterialModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">

@@ -3,7 +3,7 @@
     <div class="container mb-3 mt-4" style="width: 450px; border: 2px solid black; border-radius: 10px">
         <div class="position-relative">
             <a href="{{ route('assignmentDetailPage.view', ['assignment_id' => $submission->assignment->id]) }}" class="position-absolute" style="left: 0;">
-                <img src="{{ asset('BackArrow.png') }}" alt="Back Arrow" style="width: 25px;">
+                <img src="{{ asset('images/BackArrow.png') }}" alt="Back Arrow" style="width: 25px;">
             </a>
         </div>
         <h4 class="text-center mt-2">Score Submission</h4>
@@ -20,7 +20,7 @@
                 <label for="" class="form-label">Submission</label>
                 <div class="d-flex flex-row justify-content-between align-items-center p-3 mb-2" style="border-radius: 10px; background-color: rgb(242, 239, 239)">
                     <h6>{{substr($file_name, 0, 35)}}</h6>
-                    <a href=""><img src="{{ asset('DownloadIcon.png') }}" alt="" width="30px"></a>
+                    <a href=""><img src="{{ asset('images/DownloadIcon.png') }}" alt="" width="30px"></a>
                 </div>
             </div>
             {{-- Submit Date --}}
