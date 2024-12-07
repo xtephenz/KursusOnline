@@ -3,7 +3,7 @@
     <div class="container mb-3 mt-4" style="width: 450px; border: 2px solid black; border-radius: 10px">
         <div class="position-relative">
             <a href="{{ route('assignmentDetailPage.view', ['assignment_id' => $assignment->id]) }}" class="position-absolute" style="left: 0;">
-                <img src="{{ asset('BackArrow.png') }}" alt="Back Arrow" style="width: 25px;">
+                <img src="{{ asset('images/BackArrow.png') }}" alt="Back Arrow" style="width: 25px;">
             </a>
         </div>
         <h4 class="text-center mt-2">Edit Assignment</h4>
@@ -27,7 +27,7 @@
                 <label for="" class="form-label">Current Assignment</label>
                 <div class="d-flex flex-row justify-content-between p-3 mb-2" style="max-width: 300px; border-radius: 10px; background-color: rgb(242, 239, 239)">
                     <h6>{{$file_name}}</h6>
-                    <a href="{{ route('assignment.download', ['assignment_id' => $assignment->id]) }}"><img src="{{ asset('DownloadIcon.png') }}" alt="" width="30px"></a>
+                    <a href="{{ route('assignment.download', ['assignment_id' => $assignment->id]) }}"><img src="{{ asset('images/DownloadIcon.png') }}" alt="" width="30px"></a>
                 </div>
             </div>
             {{-- Assignment File --}}

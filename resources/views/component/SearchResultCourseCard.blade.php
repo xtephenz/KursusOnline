@@ -14,14 +14,14 @@
                         @if ($courses[$i]->lecturer->photo)
                             <img src="{{ asset($courses[$i]->lecturer->photo) }}" alt="Lecturer's photo" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
                         @else
-                            <img src="{{ asset('EmptyProfile.png') }}" alt="Default profile picture" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
+                            <img src="{{ asset('images/EmptyProfile.png') }}" alt="Default profile picture" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
                         @endif    
                         <div class="d-flex flex-column">
                             <span style="font-size: 18.5px">{{$courses[$i]->lecturer->name}}</span>
                             <small class="text-muted">Lecturer</small>
                         </div>
                     </div>
-                    @if ((Auth::user()->role_id == 2 && Auth::user()->enrollments->where('course_id', $courses[$i]->id)->first()) || Auth::user()->role_id == 1)
+                    @if ((Auth::check() && Auth::user()->role_id == 2 && Auth::user()->enrollments->where('course_id', $courses[$i]->id)->first()) || (Auth::check() && Auth::user()->role_id == 1))
                         @if (Auth::user()->enrollments->where('course_id', $courses[$i]->id)->where('status', 'Finished')->first())
                             <div class="mt-1">
                                 <a href="{{ route('finalScorePage.view', $courses[$i]->id) }}" class="btn btn-primary">View Final Score</a>

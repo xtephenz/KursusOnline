@@ -11,7 +11,7 @@
         <tbody>
             <tr>
                 <td>{{$submission->attempt_number}}</td>
-                <td><a href="{{ route('submission.download', ['submission_id' => $submission->id]) }}"><img src="{{ asset('DownloadIcon.png') }}" alt="" width="30px"></a></td>
+                <td><a href="{{ route('submission.download', ['submission_id' => $submission->id]) }}"><img src="{{ asset('images/DownloadIcon.png') }}" alt="" width="30px"></a></td>
                 <td>{{$submission->submit_date->format('j F Y')}}</td>
                 <td>{{$submission->status}}</td>
                 <td>

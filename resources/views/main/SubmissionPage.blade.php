@@ -3,7 +3,7 @@
     <div class="container my-2">
         <div class="position-relative">
             <a href="{{ route('assignmentDetailPage.view', ['assignment_id' => $assignment->id]) }}" style="left: 0;">
-                <img src="{{ asset('BackArrow.png') }}" alt="Back Arrow" style="width: 25px;">
+                <img src="{{ asset('images/BackArrow.png') }}" alt="Back Arrow" style="width: 25px;">
             </a>
         </div>
         <h4>{{$assignment->course->name}}</h4>
@@ -15,7 +15,7 @@
                 <div class="d-flex align-items-center gap-2">
                     <h2>{{$assignment->title}} Submission</h2>
                     @if (Auth::check() && Auth::user()->role_id == 3)
-                        <a href="{{ route('editAssignmentPage.view', ['assignment_id' => $assignment->id]) }}"><img src="{{ asset('EditIcon.png') }}" alt="" width="20px"></a>
+                        <a href="{{ route('editAssignmentPage.view', ['assignment_id' => $assignment->id]) }}"><img src="{{ asset('images/EditIcon.png') }}" alt="" width="20px"></a>
                     @endif
                 </div>
                 @if ($assignment->status == "On Going")
@@ -67,7 +67,7 @@
                     <h5>Question</h5>
                     <div class="d-flex flex-row justify-content-between p-3 mb-2" style="max-width: 300px; border-radius: 10px; background-color: rgb(242, 239, 239)">
                         <h6>{{$file_name}}</h6>
-                        <a href="{{ route('assignment.download', ['assignment_id' => $assignment->id]) }}"><img src="{{ asset('DownloadIcon.png') }}" alt="" width="30px"></a>
+                        <a href="{{ route('assignment.download', ['assignment_id' => $assignment->id]) }}"><img src="{{ asset('images/DownloadIcon.png') }}" alt="" width="30px"></a>
                     </div>
                 </div>
             </div>

@@ -23,7 +23,7 @@ class MaterialController extends Controller
             'material' => 'required|file|max:10000'
         ]);
         
-        $material = $request->material->store('materials', 'local');
+        $material = $request->material->store('materials');
 
         Material::create([
             'topic_id' => $topic_id,
@@ -38,16 +38,17 @@ class MaterialController extends Controller
     public function downloadMaterial($material_id)
     {
         $material = Material::with('topic')->find($material_id);
-        $file_path = $file_path = Storage::disk('local')->path($material->file_name);
+        $file_path = $material->file_name;
         $file_extension = File::extension($file_path);
         $saving_name = $material->title.'.'.$file_extension;
-        return response()->download($file_path, $saving_name);
+        $to_download = Storage::disk('s3')->get($file_path);
+        return response($to_download)->header('Content-Disposition', 'attachment; filename="' . $saving_name . '"');
     }
 
     public function deleteMaterial($material_id)
     {
         $material = Material::with('topic')->find($material_id);
-        Storage::disk('public')->delete($material->file_name);
+        Storage::disk('s3')->delete($material->file_name);
         $material->delete();
         return redirect()->back();
     }

@@ -23,10 +23,10 @@
                             @if ($submissions[$i]->student->photo)
                                 <img src="{{ asset($submissions[$i]->student->photo) }}" alt="Student's photo" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
                             @else
-                                <img src="{{ asset('EmptyProfile.png') }}" alt="Default profile picture" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
+                                <img src="{{ asset('images/EmptyProfile.png') }}" alt="Default profile picture" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
                             @endif 
                         </td>
-                            <td><a href="{{ route('submission.download', ['submission_id' => $submissions[$i]->id]) }}"><img src="{{ asset('DownloadIcon.png') }}" alt="" width="30px"></a></td>
+                            <td><a href="{{ route('submission.download', ['submission_id' => $submissions[$i]->id]) }}"><img src="{{ asset('images/DownloadIcon.png') }}" alt="" width="30px"></a></td>
                         <td>{{$submissions[$i]->submit_date->format('j F Y')}}</td>
                         <td>{{$submissions[$i]->attempt_number}}</td>
                         <td>

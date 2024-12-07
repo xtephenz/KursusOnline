@@ -19,7 +19,7 @@
                         @if ($course->lecturer->photo)
                             <img src="{{ asset($course->lecturer->photo) }}" alt="Lecturer's photo" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
                         @else
-                            <img src="{{ asset('EmptyProfile.png') }}" alt="Default profile picture" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
+                            <img src="{{ asset('images/EmptyProfile.png') }}" alt="Default profile picture" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
                         @endif 
                     </td>
                     <td><a href="mailto:{{$student->email}}">{{$student->email}}</a></td>
@@ -38,8 +38,9 @@
                         <td>
                             @if (count($student->submissions) < count($course->assignments))
                                 {{count($student->submissions)}} assignments done of {{count($course->assignments)}}
+                            @elseif (count($course->assignments) == 0)
+                                No assignment yet!
                             @elseif ($student->submissions->contains('score', null))
-                                
                                 Assignment(s) not yet assessed!
                             @elseif ($enrollment->final_score != null)
                                 Final score has been submitted!
@@ -81,7 +82,7 @@
                             @if ($course->lecturer->photo)
                                 <img src="{{ asset($course->lecturer->photo) }}" alt="Lecturer's photo" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
                             @else
-                                <img src="{{ asset('EmptyProfile.png') }}" alt="Default profile picture" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
+                                <img src="{{ asset('images/EmptyProfile.png') }}" alt="Default profile picture" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
                             @endif 
                         </td>
                         <td><a href="mailto:{{$student->email}}">{{$student->email}}</a></td>

@@ -3,7 +3,7 @@
     <div class="container mb-3 mt-4" style="width: 450px; border: 2px solid black; border-radius: 10px">
         <div class="position-relative">
             <a href="{{ route('coursesPage.view') }}" class="position-absolute" style="left: 0;">
-                <img src="{{ asset('BackArrow.png') }}" alt="Back Arrow" style="width: 25px;">
+                <img src="{{ asset('images/BackArrow.png') }}" alt="Back Arrow" style="width: 25px;">
             </a>
         </div>
         <h4 class="text-center mt-2">Add New Course</h4>
@@ -12,7 +12,7 @@
             {{-- Course Name --}}
             <div class="mb-3">
                 <label for="name" class="form-label">Course Name</label>
-                <input type="text" class="form-control" name="name" id="name" placeholder="" value="{{old('name')}}" >
+                <input type="text" class="form-control" name="name" id="name" placeholder="" value="{{old('name', $material->name ?? '')}}" >
                 @error('name')
                     <div class="alert alert-danger">{{$message}}</div>
                 @enderror

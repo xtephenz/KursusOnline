@@ -20,7 +20,7 @@ class AssignmentController extends Controller
             'start' => 'required|date|after_or_equal:today',
             'due' => 'required|date|after:start'
         ]);
-        $assignment = $request->assignment->store('assignments', 'local');
+        $assignment = $request->assignment->store('assignments');
         if($request->start > now()){
             $status = 'Coming Soon';
         }
@@ -43,7 +43,7 @@ class AssignmentController extends Controller
     {
         $assignment = Assignment::with('course', 'submissions')->find($assignment_id);
         $submission = $assignment->submissions->where('student_id', Auth::user()->id)->first();
-        $file_path = Storage::disk('local')->path($assignment->file_name);
+        $file_path = $assignment->file_name;
         $file_extension = File::extension($file_path);
         $display_name = $assignment->title.'.'.$file_extension;
         $submissions = $assignment->submissions;
@@ -53,16 +53,17 @@ class AssignmentController extends Controller
     public function downloadAssignment($assignment_id)
     {
         $assignment = Assignment::with('course', 'submissions')->find($assignment_id);
-        $file_path = Storage::disk('local')->path($assignment->file_name);
+        $file_path = $assignment->file_name;
         $file_extension = File::extension($file_path);
         $saving_name = $assignment->title.'.'.$file_extension;
-        return response()->download($file_path, $saving_name);
+        $to_download = Storage::disk('s3')->get($file_path);
+        return response($to_download)->header('Content-Disposition', 'attachment; filename="' . $saving_name . '"');
     }
 
     public function viewEditAssignmentPage($assignment_id)
     {
         $assignment = Assignment::with('course', 'submissions')->find($assignment_id);
-        $file_path = Storage::disk('local')->path($assignment->file_name);
+        $file_path = $assignment->file_name;
         $file_extension = File::extension($file_path);
         $display_name = $assignment->title.'.'.$file_extension;
         return view('main.EditAssignmentPage', ['assignment' => $assignment, 'file_name' => $display_name,]);
@@ -85,8 +86,8 @@ class AssignmentController extends Controller
             $status = 'On Going';
         }
         if($request->assignment != null){
-            Storage::disk('local')->delete($assignment->file_name);
-            $assignment->file_name = $request->assignment->store('assignments', 'local');
+            Storage::disk('s3')->delete($assignment->file_name);
+            $assignment->file_name = $request->assignment->store('assignments');
         }
         $assignment->title = $request->title;
         $assignment->attempts = $request->attempts;
@@ -101,7 +102,7 @@ class AssignmentController extends Controller
     {
         $assignment = Assignment::with('course', 'submissions')->find($assignment_id);
         $submission = $assignment->submissions->where('student_id', Auth::user()->id)->first();
-        $file_path = Storage::disk('local')->path($assignment->file_name);
+        $file_path = $assignment->file_name;
         $file_extension = File::extension($file_path);
         $display_name = $assignment->title.'.'.$file_extension;
         return view('main.SubmissionPage', ['assignment' => $assignment, 'file_name' => $display_name, 'submission' => $submission]);
@@ -113,10 +114,10 @@ class AssignmentController extends Controller
         $course_id = $assignment->course->id;
         DB::transaction(function () use ($assignment) {
             $assignment->submissions->each(function ($submission) {
-                Storage::disk('local')->delete($submission->file_name);
+                Storage::disk('s3')->delete($submission->file_name);
                 $submission->delete();
             });
-            Storage::disk('local')->delete($assignment->file_name);
+            Storage::disk('s3')->delete($assignment->file_name);
             $assignment->delete();
         });
         return redirect()->route('courseDetailPage.assignment', ['course_id' => $course_id])->with('success', 'Assignment has been deleted!');
