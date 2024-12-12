@@ -25,8 +25,8 @@
             </ul>
             @if (!Auth::check() || (Auth::check() && Auth::user()->role_id != 3))
                 <form class="d-flex" action="{{ route('search') }}" method="get" role="search">
-                    <input class="form-control me-2" type="search" name="query" placeholder="Search course by name, lecturer, or topic" aria-label="Search" value="{{ request('query') }}" style="width: 350px">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <input class="form-control me-2" type="search" name="query" placeholder="Search course by name, lecturer, or topic" aria-label="Search" value="{{ request('query') }}" style="width: 370px">
+                    <button class="btn btn-search" type="submit">Search</button>
                 </form>
             @endif
         </div>
