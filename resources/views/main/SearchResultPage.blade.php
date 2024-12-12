@@ -1,16 +1,18 @@
 @extends('layout.master')
+
 @section('content')
-    <div class="container my-2">
+    <div class="container my-4">
         @if ($allCourses->isNotEmpty())
-            <h4>"Course(s) related to: {{$query}}"</h4>
-            <div class="container">
+            <h4 class="text-center mb-4">Courses related to: <strong>"{{ $query }}"</strong></h4>
+            <div class="row">
                 @include('component.SearchResultCourseCard', ['courses' => $allCourses])
-                <div class="my-1">
-                    {{ $allCourses->appends(['query' => request()->input('query')])->links() }}
-                </div>
+            </div>
+            <div class="d-flex justify-content-center my-3">
+                {{-- Pagination links with custom query handling --}}
+                {{ $allCourses->appends(['query' => request()->input('query')])->links() }}
             </div>
         @else
-            <h4>"Sorry, we couldn't find any courses related to: {{$query}}"</h4>
+            <h4 class="text-center text-muted">Sorry, we couldn't find any courses related to: <strong>"{{ $query }}"</strong></h4>
         @endif
     </div>
 @endsection

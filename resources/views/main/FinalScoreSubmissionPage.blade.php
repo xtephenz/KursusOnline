@@ -1,59 +1,76 @@
 @extends('layout.master')
+
 @section('content')
-    <div class="container mb-3 mt-4" style="width: 500px; border: 2px solid black; border-radius: 10px">
-        <div class="position-relative">
-            <a href="{{ route('courseDetailPage.student', ['course_id' => $enrollment->course->id]) }}" class="position-absolute" style="left: 0;">
+    <div class="container my-4" style="max-width: 500px; border: 2px solid black; border-radius: 10px; padding: 20px;">
+        <div class="position-relative mb-3">
+            <a href="{{ route('courseDetailPage.student', ['course_id' => $enrollment->course->id]) }}" class="position-absolute" style="left: 0; top: -10px;">
                 <img src="{{ asset('images/BackArrow.png') }}" alt="Back Arrow" style="width: 25px;">
             </a>
         </div>
-        <h4 class="text-center mt-2">Final Score Submission</h4>
+
+        <h4 class="text-center mb-3">Final Score Submission</h4>
+
         <form class="p-3" action="" method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
+
             {{-- Course --}}
             <div class="mb-3">
                 <label for="course" class="form-label">Course</label>
-                <input type="text" class="form-control" name="course" id="course" value="{{$enrollment->course->name}}" readonly>
+                <input type="text" class="form-control" name="course" id="course" value="{{ $enrollment->course->name }}" readonly>
             </div>
+
             {{-- Student --}}
             <div class="mb-3">
                 <label for="student" class="form-label">Student</label>
-                <input type="text" class="form-control" name="student" id="student" value="{{$enrollment->student->name}}" readonly>
+                <input type="text" class="form-control" name="student" id="student" value="{{ $enrollment->student->name }}" readonly>
             </div>
-            {{-- Submission --}}
+
+            {{-- Submission List --}}
             <div class="mb-3">
                 <label for="" class="form-label">Submission List</label>
-                <table class="table">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Assignment Title</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
                     <tbody>
-                        @for ($i = 0; $i < count($submissions); $i++)
+                        @foreach ($submissions as $index => $submission)
                             <tr>
-                                <td>{{$i+1}}.</td>
-                                <td>{{$submissions[$i]->assignment->title}}</td>
+                                <td>{{ $index + 1 }}.</td>
+                                <td>{{ $submission->assignment->title }}</td>
                                 <td>
-                                    @if ($submissions[$i]->score != null)
-                                        {{$submissions[$i]->score}}
+                                    @if ($submission->score !== null)
+                                        {{ $submission->score }}
                                     @else
                                         N/A
                                     @endif
                                 </td>
                             </tr>
-                        @endfor
+                        @endforeach
                     </tbody>
                 </table>
             </div>
-            {{-- Score --}}
+
+            {{-- Final Score --}}
             <div class="mb-3">
-                <label for="score" class="form-label">Score</label>
-                <input type="number" class="form-control" name="score" id="score" value="{{$score}}" step="0.01">
+                <label for="score" class="form-label">Final Score</label>
+                <input type="number" class="form-control" name="score" id="score" value="{{ $score }}" step="0.01">
                 @error('score')
-                    <div class="alert alert-danger">{{$message}}</div>
+                    <div class="alert alert-danger mt-2">{{ $message }}</div>
                 @enderror
             </div>
+
             <div class="d-flex justify-content-center mb-3">
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#submitFinalScoreModal">
                     Submit Final Score
                 </button>
             </div>
+
+            {{-- Modal Confirmation --}}
             <div class="modal fade" id="submitFinalScoreModal" tabindex="-1" aria-labelledby="submitFinalScoreLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -74,7 +91,9 @@
                     </div>
                 </div>
             </div>
+
         </form>
     </div>
+
     @include('component.WhiteSpace')
 @endsection

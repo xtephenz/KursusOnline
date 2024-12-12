@@ -4,28 +4,48 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
   }
-  
+
   .course-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   }
-  
+
   .course-card .card-body {
     padding: 1.5rem;
   }
-  
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.pagination .page-link {
+    border-radius: 50%;
+    padding: 8px 14px;
+    color: #121212;
+    background-color: whitesmoke;
+}
+
+.pagination .page-link:hover {
+    background-color: #0056b3;
+    color: #fff;
+}
+
   .course-card .card-title {
     font-size: 1.25rem;
     font-weight: 300;
     margin-bottom: 1rem;
+    font: bold;
   }
-  
+
   .course-card .lecturer-info {
     display: flex;
     align-items: center;
     margin-bottom: 1rem;
   }
-  
+
   .course-card .lecturer-photo {
     width: 10px;
     height: 10px;
@@ -33,17 +53,17 @@
     object-fit: cover;
     margin-right: 1rem;
   }
-  
+
   .course-card .lecturer-name {
     font-size: 1rem;
     font-weight: 300;
   }
-  
+
   .course-card .lecturer-title {
     color: #6c757d;
     font-size: 0.875rem;
   }
-  
+
   .course-card .btn {
     font-size: 0.875rem;
     padding: 0.5rem 1rem;
@@ -57,41 +77,27 @@
     background-color: #fff;
     padding: 2rem;
   }
-  
+
   .login-container h4 {
     font-weight: 600;
     margin-bottom: 1.5rem;
   }
-  
-  .form-control {
-    border-color: #dee2e6;
-    border-radius: 0.375rem;
-  }
-  
-  .form-control:focus {
-    border-color: #86b7fe;
-    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-  }
-  
+
   .btn-primary {
     background-color: #0d6efd;
     border-color: #0d6efd;
   }
 
-  .btn-login {
-    width: 200;
-  }
-  
   .btn-primary:hover {
     background-color: #0b5ed7;
     border-color: #0a58ca;
   }
-  
+
   .register-link {
     color: #0d6efd;
     text-decoration: none;
   }
-  
+
   .register-link:hover {
     color: #0a58ca;
   }
@@ -105,9 +111,84 @@
   .btn-search:hover {
     background-color: #0d6efd;
     color: white;
-    
+
   }
 
   body {
     font-family: 'Poppins', sans-serif;
+    }
+
+    .navbar-nav .nav-link:hover {
+        color: #0d6efd;
+        text-decoration: underline;
+    }
+
+    .navbar-toggler {
+        border: none;
+    }
+
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+      }
+
+      .footer-links a:hover {
+        color: #fff;
+      }
+
+      .hero {
+        background: url('/images/hero-bg.jpg') no-repeat center center / cover;
+        height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hero .btn-lg {
+        font-size: 1.25rem;
+        padding: 0.75rem 1.5rem;
+    }
+
+    .hero .btn-lg:hover {
+        background-color: #121212;
+        border-color: #121212;
+        color: white;
+      }
+
+      /* Button Styling */
+.btn-outline-primary {
+    border: 2px solid #007bff; /* Blue border */
+    color: #007bff;           /* Blue text */
+    background-color: transparent;
+    transition: all 0.3s ease;
 }
+
+.btn-outline-primary:hover {
+    background-color: #007bff; /* Blue background */
+    color: #fff;               /* White text */
+    border-color: #0056b3;     /* Darker blue border */
+}
+
+.btn-login {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 16px;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+}
+
+.invalid-feedback {
+    display: block;
+    font-size: 0.875em;
+    color: #dc3545;
+}
+
+.form-check-input:checked {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
