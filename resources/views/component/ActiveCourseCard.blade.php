@@ -1,31 +1,34 @@
-<div class="container d-flex flex-column align-items-center gap-2">
-    @php
-        $coursesPerRow = 3;
-    @endphp
-    <div class="row gap-3">
-        @for ($i = 0; $i < count($courses); $i++)         
-            @if ($i % $coursesPerRow == 0 && $i != 0)
-                </div><div class="row gap-3">
-            @endif
-            <div class="card" style="width: 25rem;">
-                <div class="card-body d-flex flex-column gap-1">
-                    <h5 class="card-title">{{ $courses[$i]->name }}</h5>
-                    <div class="fs-5 d-inline-flex">
-                        @if ($courses[$i]->lecturer->photo)
-                            <img src="{{ asset($courses[$i]->lecturer->photo) }}" alt="Lecturer's photo" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
-                        @else
-                            <img src="{{ asset('images/EmptyProfile.png') }}" alt="Default profile picture" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
-                        @endif    
-                        <div class="d-flex flex-column">
-                            <span style="font-size: 18.5px">{{$courses[$i]->lecturer->name}}</span>
-                            <small class="text-muted">Lecturer</small>
+<div class="container d-flex flex-column align-items-center gap-4">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach ($courses as $course)
+            <div class="col">
+                <div class="card h-100 shadow-sm course-card">
+                    <div class="card-body d-flex flex-column gap-3">
+                        <!-- Course Name -->
+                        <h5 class="card-title">{{ $course->name }}</h5>
+
+                        <!-- Lecturer Information -->
+                        <div class="d-flex align-items-center gap-3">
+                            @if ($course->lecturer->photo)
+                                <img src="{{ Storage::disk('s3')->url($course->lecturer->photo) }}" alt="Lecturer's photo"
+                                     class="rounded-circle shadow-sm" style="width: 70px; height: 70px; object-fit: cover;">
+                            @else
+                                <img src="{{ asset('images/EmptyProfile.png') }}" alt="Default profile picture"
+                                     class="rounded-circle shadow-sm" style="width: 70px; height: 70px; object-fit: cover;">
+                            @endif
+                            <div>
+                                <div class="fw-semibold">{{ $course->lecturer->name }}</div>
+                                <div class="text-muted">Lecturer</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="mt-1">
-                        <a href="{{ route('courseDetailPage.view', $courses[$i]->id) }}" class="btn btn-primary">View Course</a>
+
+                        <!-- Action Button -->
+                        <a href="{{ route('courseDetailPage.view', $course->id) }}" class="btn btn-outline-primary btn-hover">
+                            View Course
+                        </a>
                     </div>
                 </div>
             </div>
-        @endfor
+        @endforeach
     </div>
 </div>

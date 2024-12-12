@@ -62,7 +62,7 @@ Route::post('/assignment/{assignment_id}/submit', [SubmissionController::class, 
 Route::get('/assignment/{assignment_id}/download', [AssignmentController::class, 'downloadAssignment'])->middleware('auth')->name('assignment.download');
 Route::delete('/assignment/{assignment_id}/delete', [AssignmentController::class, 'deleteAssignment'])->middleware('only.lecturer')->name('assignment.delete');
 
-Route::get('/submission/{submission_id}/download', [SubmissionController::class, 'downloadSubmission'])->middleware('only.lecturer')->name('submission.download');
+Route::get('/submission/{submission_id}/download', [SubmissionController::class, 'downloadSubmission'])->middleware('auth', 'restrict.admin')->name('submission.download');
 
 Route::get('/submission/{submission_id}/scoring', [SubmissionController::class, 'viewScoringPage'])->middleware('only.lecturer')->name('scoringPage.view');
 Route::put('/submission/{submission_id}/scoring', [SubmissionController::class, 'scoreSubmission'])->middleware('only.lecturer')->name('scoringPage.score');

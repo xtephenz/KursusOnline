@@ -8,6 +8,8 @@
             <div class="alert alert-success mt-3 mx-2">{{session('success')}}</div>
         @endif
         <div class="container">
+            <h2 class="text-center mb-4" style="font-size: 30px; font-weight: bold; color: #007bff;">Course List</h2>
+
             @if (Auth::check() && Auth::user()->role_id == 1)
             <div class="d-flex justify-content-end my-2">
                 <a href="{{ route('addCoursePage.view') }}" class="btn btn-primary">Add New Course</a>
