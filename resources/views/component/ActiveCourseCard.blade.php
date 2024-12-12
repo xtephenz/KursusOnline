@@ -1,7 +1,4 @@
 <div class="container d-flex flex-column align-items-center gap-4">
-    @php
-        $coursesPerRow = 3;
-    @endphp
     <div class="row row-cols-1 row-cols-md-3 g-4">
         @foreach ($courses as $course)
             <div class="col">
@@ -13,7 +10,7 @@
                         <!-- Lecturer Information -->
                         <div class="d-flex align-items-center gap-3">
                             @if ($course->lecturer->photo)
-                                <img src="{{ asset($course->lecturer->photo) }}" alt="Lecturer's photo"
+                                <img src="{{ Storage::disk('s3')->url($course->lecturer->photo) }}" alt="Lecturer's photo"
                                      class="rounded-circle shadow-sm" style="width: 70px; height: 70px; object-fit: cover;">
                             @else
                                 <img src="{{ asset('images/EmptyProfile.png') }}" alt="Default profile picture"
@@ -26,11 +23,9 @@
                         </div>
 
                         <!-- Action Button -->
-                        <div class="mt-2">
-                            <a href="{{ route('courseDetailPage.view', $course->id) }}" class="btn btn-primary btn-hover">
-                                View Course
-                            </a>
-                        </div>
+                        <a href="{{ route('courseDetailPage.view', $course->id) }}" class="btn btn-outline-primary btn-hover">
+                            View Course
+                        </a>
                     </div>
                 </div>
             </div>

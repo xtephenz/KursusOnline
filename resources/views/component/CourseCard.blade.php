@@ -1,7 +1,4 @@
 <div class="container d-flex flex-column align-items-center gap-4">
-    @php
-        $coursesPerRow = 3;
-    @endphp
     <div class="row row-cols-1 row-cols-md-3 g-4">
         @foreach ($courses as $course)
             <div class="col">
@@ -13,7 +10,7 @@
                         <!-- Lecturer Information -->
                         <div class="d-flex align-items-center gap-3">
                             @if ($course->lecturer->photo)
-                                <img src="{{ asset($course->lecturer->photo) }}"
+                                <img src="{{ Storage::disk('s3')->url($course->lecturer->photo) }}"
                                      alt="Lecturer's photo"
                                      class="rounded-circle shadow-sm"
                                      style="width: 70px; height: 70px; object-fit: cover;">

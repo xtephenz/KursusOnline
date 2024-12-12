@@ -20,7 +20,7 @@
     </section>
 
     <!-- Main Content -->
-    <div class="container my-4">
+    <div class="container my-4 pb-3">
         <!-- Welcome Message -->
         <div class="text-end mb-4">
             @if(Auth::check())
@@ -81,7 +81,4 @@
             @endif
         @endif
     </div>
-
-    <!-- Extra Spacing -->
-    <div class="py-3"></div>
 @endsection

@@ -13,7 +13,7 @@
                         <!-- Lecturer Information -->
                         <div class="d-flex align-items-center gap-3">
                             @if ($course->lecturer->photo)
-                                <img src="{{ asset($course->lecturer->photo) }}"
+                                <img src="{{ Storage::disk('s3')->url($course->lecturer->photo) }}"
                                      alt="Lecturer's photo"
                                      class="rounded-circle shadow-sm"
                                      style="width: 70px; height: 70px; object-fit: cover;">
@@ -29,15 +29,14 @@
                             </div>
                         </div>
 
-                        <!-- Action Button -->
-                        @if (Auth::check() && Auth::user()->role_id == 1)
-                            <a href="{{ route('courseDetailPage.view', $course->id) }}" class="btn btn-outline-primary btn-hover">
-                                View Course
-                            </a>
+                        @if ((Auth::check() && Auth::user()->role_id == 2 && Auth::user()->enrollments->where('course_id', $course->id)->first()) || (Auth::check() && Auth::user()->role_id == 1))
+                            @if (Auth::user()->enrollments->where('course_id', $course->id)->where('status', 'Finished')->first())
+                                <a href="{{ route('finalScorePage.view', $course->id) }}" class="btn btn-outline-primary btn-hover">View Final Score</a>
+                            @else
+                                <a href="{{ route('courseDetailPage.view', $course->id) }}" class="btn btn-outline-primary btn-hover">View Course</a>
+                            @endif
                         @else
-                            <a href="{{ route('enrollmentPage.view', $course->id) }}" class="btn btn-outline-primary btn-hover">
-                                Show Details...
-                            </a>
+                            <a href="{{ route('enrollmentPage.view', $course->id) }}" class="btn btn-outline-primary btn-hover">Show Details...</a>
                         @endif
                     </div>
                 </div>

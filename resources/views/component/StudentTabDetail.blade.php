@@ -1,7 +1,7 @@
 <h5>Students</h5>
 <div class="table-responsive">
-    <table class="table">
-        <thead>
+    <table class="table table-bordered table-hover table-striped">
+        <thead class="thead-light">
             <tr>
                 <th>Name</th>
                 <th>Photo</th>
@@ -20,7 +20,7 @@
                         <td>{{$student->name}}</td>
                         <td>
                             @if ($student->photo)
-                                <img src="{{ asset($student->photo) }}" alt="Student's photo" class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;">
+                                <img src="{{ Storage::disk('s3')->url($student->photo) }}" alt="Student's photo" class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;">
                             @else
                                 <img src="{{ asset('images/EmptyProfile.png') }}" alt="Default profile picture" class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;">
                             @endif
@@ -69,8 +69,8 @@
     <br>
     <h5>Previous Students</h5>
     <div class="table-responsive">
-        <table class="table">
-            <thead>
+        <table class="table table-bordered table-hover table-striped">
+            <thead class="thead-light">
                 <tr>
                     <th>Name</th>
                     <th>Photo</th>
@@ -89,7 +89,7 @@
                             <td>{{$student->name}}</td>
                             <td>
                                 @if ($student->photo)
-                                    <img src="{{ asset($student->photo) }}" alt="Student's photo" class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;">
+                                    <img src="{{ Storage::disk('s3')->url($student->photo) }}" alt="Student's photo" class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;">
                                 @else
                                     <img src="{{ asset('images/EmptyProfile.png') }}" alt="Default profile picture" class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;">
                                 @endif

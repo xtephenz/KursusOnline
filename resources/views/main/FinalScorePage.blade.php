@@ -60,6 +60,4 @@
             @enderror
         </div>
     </div>
-
-    @include('component.WhiteSpace')
 @endsection

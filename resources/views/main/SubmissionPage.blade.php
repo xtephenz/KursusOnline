@@ -96,6 +96,4 @@
             </div>
         </div>
     </div>
-
-    @include('component.WhiteSpace')
 @endsection

@@ -43,11 +43,4 @@
             </div>
         </form>
     </div>
-
-    {{-- Optional Spacer --}}
-    <div class="mt-5">
-        @for ($i = 0; $i < 15; $i++)
-            <br>
-        @endfor
-    </div>
 @endsection

@@ -56,7 +56,7 @@
         {{-- Lecturer Info --}}
         <div class="d-flex align-items-center gap-3 mb-4">
             @if ($course->lecturer->photo)
-                <img src="{{ asset($course->lecturer->photo) }}" alt="Lecturer's photo" class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;">
+                <img src="{{ Storage::disk('s3')->url($course->lecturer->photo) }}" alt="Lecturer's photo" class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;">
             @else
                 <img src="{{ asset('images/EmptyProfile.png') }}" alt="Default profile picture" class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;">
             @endif
@@ -105,7 +105,5 @@
         @if (request()->routeIs('courseDetailPage.student'))
             @include('component.StudentTabDetail', ['course' => $course, 'activeStudents' => $activeStudents, 'finishedStudents' => $finishedStudents])
         @endif
-
-        @include('component.WhiteSpace')
     </div>
 @endsection

@@ -2,11 +2,6 @@
 
 @section('content')
     <div class="container mb-3 mt-4" style="max-width: 500px; border: 2px solid blue; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-        <div class="position-relative">
-            <a href="{{ route('loginPage.view') }}" class="position-absolute" style="left: 0; top: 10px;">
-                <img src="{{ asset('images/BackArrow.png') }}" alt="Back Arrow" style="width: 25px; cursor: pointer;">
-            </a>
-        </div>
         <h4 class="text-center mt-3 mb-4" style="color: blue">Create an Account</h4>
 
         <form class="p-4" action="{{ route('registerPage.register') }}" method="POST">

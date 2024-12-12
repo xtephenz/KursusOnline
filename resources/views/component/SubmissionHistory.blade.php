@@ -14,21 +14,13 @@
             <tr>
                 <td>{{$submission->attempt_number}}</td>
                 <td>
-                    <a href="{{ route('submission.download', ['submission_id' => $submission->id]) }}"
-                        class="btn btn-sm btn-outline-primary"
-                        data-bs-toggle="tooltip" data-bs-placement="top" title="Download File">
-                        <img src="{{ asset('images/DownloadIcon.png') }}" alt="Download Icon" width="25px">
+                    <a href="{{ route('submission.download', ['submission_id' => $submission->id]) }}">
+                        <img src="{{ asset('images/DownloadIcon.png') }}" alt="Download Icon" width="30px">
                     </a>
                 </td>
                 <td>{{$submission->submit_date->format('j F Y')}}</td>
                 <td>
-                    <span class="badge
-                        @if($submission->status == 'Pending') badge-warning
-                        @elseif($submission->status == 'Approved') badge-success
-                        @elseif($submission->status == 'Rejected') badge-danger
-                        @else badge-secondary @endif">
-                        {{$submission->status}}
-                    </span>
+                    {{$submission->status}}
                 </td>
                 <td>
                     @if ($submission->score === null)

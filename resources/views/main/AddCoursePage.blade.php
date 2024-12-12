@@ -41,7 +41,7 @@
                 <div id="topics-container">
                     @foreach (old('topics', range(1, 1)) as $index => $topic)
                         <div class="topic-field mb-2">
-                            <input type="text" class="form-control" name="topics[]" placeholder="Topic {{$index + 1}}" value="{{ is_string($topic) ? $topic : '' }}" required>
+                            <input type="text" class="form-control" name="topics[]" placeholder="Topic {{$index + 1}}" value="{{ is_string($topic) ? $topic : '' }}">
                             @error('topics.' . $index)
                                 <div class="alert alert-danger mt-2">{{ $message }}</div>
                             @enderror
@@ -58,13 +58,6 @@
         </form>
     </div>
 
-    {{-- Optional Spacer --}}
-    <div class="mt-5">
-        @for ($i = 0; $i < 15; $i++)
-            <br>
-        @endfor
-    </div>
-
     {{-- Script to Add Topics Dynamically --}}
     <script>
         document.getElementById('add-topic').addEventListener('click', function () {
@@ -73,7 +66,7 @@
             const newTopicField = document.createElement('div');
             newTopicField.classList.add('topic-field', 'mb-2');
             newTopicField.innerHTML = `
-                <input type="text" class="form-control" name="topics[]" placeholder="Topic ${topicCount}" required>
+                <input type="text" class="form-control" name="topics[]" placeholder="Topic ${topicCount}">
             `;
             topicsContainer.appendChild(newTopicField);
         });

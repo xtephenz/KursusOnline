@@ -44,6 +44,4 @@
             Don't have an account? <a href="{{ route('registerPage.view') }}">Register here!</a>
         </p>
     </div>
-
-    <br><br><br><br><br><br><br><br>
 @endsection

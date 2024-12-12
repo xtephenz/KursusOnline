@@ -50,11 +50,4 @@
             </div>
         </form>
     </div>
-
-    {{-- Adding whitespace for spacing --}}
-    <div class="container mb-4">
-        @for ($i = 0; $i < 15; $i++)
-            <br>
-        @endfor
-    </div>
 @endsection

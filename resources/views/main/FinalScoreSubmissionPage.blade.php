@@ -94,6 +94,4 @@
 
         </form>
     </div>
-
-    @include('component.WhiteSpace')
 @endsection

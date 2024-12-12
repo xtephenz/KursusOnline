@@ -25,7 +25,7 @@
                 <div class="d-flex justify-content-between align-items-center p-3 mb-2" style="border-radius: 10px; background-color: rgb(242, 239, 239)">
                     <h6 class="text-truncate" style="max-width: 70%;">{{substr($file_name, 0, 35)}}</h6>
                     <!-- Removed the download link changes here -->
-                    <a href=""><img src="{{ asset('images/DownloadIcon.png') }}" alt="Download" width="30px"></a>
+                    <a href="{{ route('submission.download', ['submission_id' => $submission->id]) }}"><img src="{{ asset('images/DownloadIcon.png') }}" alt="Download" width="30px"></a>
                 </div>
             </div>
 
@@ -53,6 +53,4 @@
             </div>
         </form>
     </div>
-
-    @include('component.WhiteSpace')
 @endsection

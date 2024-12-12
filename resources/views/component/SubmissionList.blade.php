@@ -1,7 +1,7 @@
 <div class="container">
     <h4>Submission</h4>
-    <table class="table">
-        <thead>
+    <table class="table table-bordered table-hover table-striped">
+        <thead class="thead-light">
             <th>No</th>
             <th>Student</th>
             <th>Photo</th>
@@ -21,12 +21,14 @@
                         </td>
                         <td>
                             @if ($submissions[$i]->student->photo)
-                                <img src="{{ asset($submissions[$i]->student->photo) }}" alt="Student's photo" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
+                                <img src="{{ Storage::disk('s3')->url($submissions[$i]->student->photo) }}" alt="Student's photo" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
                             @else
                                 <img src="{{ asset('images/EmptyProfile.png') }}" alt="Default profile picture" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
                             @endif 
                         </td>
-                            <td><a href="{{ route('submission.download', ['submission_id' => $submissions[$i]->id]) }}"><img src="{{ asset('images/DownloadIcon.png') }}" alt="" width="30px"></a></td>
+                        <td>
+                            <a href="{{ route('submission.download', ['submission_id' => $submissions[$i]->id]) }}"><img src="{{ asset('images/DownloadIcon.png') }}" alt="" width="30px"></a>
+                        </td>
                         <td>{{$submissions[$i]->submit_date->format('j F Y')}}</td>
                         <td>{{$submissions[$i]->attempt_number}}</td>
                         <td>

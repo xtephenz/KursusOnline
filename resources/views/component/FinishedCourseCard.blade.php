@@ -10,20 +10,20 @@
             <div class="card shadow-sm" style="width: 25rem; border-radius: 15px;">
                 <div class="card-body d-flex flex-column gap-1">
                     <h5 class="card-title">{{ $courses[$i]->name }}</h5>
-                    <div class="fs-5 d-inline-flex">
-                        @if ($courses[$i]->lecturer->photo)
-                            <img src="{{ asset($courses[$i]->lecturer->photo) }}" alt="Lecturer's photo" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
+                    <div class="d-flex align-items-center gap-3">
+                        @if ($course->lecturer->photo)
+                            <img src="{{ Storage::disk('s3')->url($course->lecturer->photo) }}" alt="Lecturer's photo"
+                                 class="rounded-circle shadow-sm" style="width: 70px; height: 70px; object-fit: cover;">
                         @else
-                            <img src="{{ asset('images/EmptyProfile.png') }}" alt="Default profile picture" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" class="me-3">
+                            <img src="{{ asset('images/EmptyProfile.png') }}" alt="Default profile picture"
+                                 class="rounded-circle shadow-sm" style="width: 70px; height: 70px; object-fit: cover;">
                         @endif
-                        <div class="d-flex flex-column">
-                            <span style="font-size: 18.5px">{{$courses[$i]->lecturer->name}}</span>
-                            <small class="text-muted">Lecturer</small>
+                        <div>
+                            <div class="fw-semibold">{{ $course->lecturer->name }}</div>
+                            <div class="text-muted">Lecturer</div>
                         </div>
                     </div>
-                    <div class="mt-1">
-                        <a href="{{ route('finalScorePage.view', ['course_id' => $courses[$i]->id]) }}" class="btn btn-outline-primary">View Final Score</a>
-                    </div>
+                    <a href="{{ route('finalScorePage.view', ['course_id' => $courses[$i]->id]) }}" class="btn btn-outline-primary btn-hover">View Final Score</a>
                 </div>
             </div>
         @endfor

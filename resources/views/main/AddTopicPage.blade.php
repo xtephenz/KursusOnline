@@ -33,32 +33,25 @@
 
             {{-- Add New Topics --}}
             <div class="mb-3">
-                <label class="form-label">Add Topics</label>
+                <label class="form-label">Topics</label>
                 @php
                     $startIndex = $course->topics->count() + 1; // Start after existing topics
                 @endphp
                 @foreach (old('topics', range(1, 1)) as $index => $topic)
                     <div class="mb-2">
-                        <input type="text" class="form-control" name="topics[]" placeholder="Topic {{ $startIndex + $index }}" value="{{ is_string($topic) ? $topic : '' }}" required>
+                        <input type="text" class="form-control" name="topics[]" placeholder="Topic {{ $startIndex + $index }}" value="{{ is_string($topic) ? $topic : '' }}">
                     </div>
                     @error('topics.' . $index)
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                 @endforeach
-                <button type="submit" name="add_topic" value="1" class="btn btn-secondary mt-2 w-100">Add Another Topic</button>
+                <button type="submit" name="add_topic" value="1" class="btn btn-outline-secondary mt-2 w-100">Add Another Topic</button>
             </div>
 
             {{-- Submit Button --}}
             <div class="d-flex justify-content-center mb-3">
-                <button type="submit" class="btn btn-primary w-100">Add Topics</button>
+                <button type="submit" class="btn btn-primary">Add Topics</button>
             </div>
         </form>
-    </div>
-
-    {{-- Optional Spacer --}}
-    <div class="mt-5">
-        @for ($i = 0; $i < 15; $i++)
-            <br>
-        @endfor
     </div>
 @endsection
