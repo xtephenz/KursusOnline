@@ -3,6 +3,8 @@
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
   }
 
   .course-card:hover {
@@ -162,6 +164,19 @@
     color: #007bff;           /* Blue text */
     background-color: transparent;
     transition: all 0.3s ease;
+}
+
+.btn-outline-primary-green {
+    border: 2px solid green; /* Blue border */
+    color: green;           /* Blue text */
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary-green:hover {
+    background-color: green; /* Blue background */
+    color: #fff;               /* White text */
+    border-color: green;     /* Darker blue border */
 }
 
 .btn-outline-primary:hover {

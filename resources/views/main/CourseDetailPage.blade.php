@@ -76,7 +76,7 @@
         @if (request()->routeIs('courseDetailPage.view'))
             @if (Auth::check() && Auth::user()->role_id == 1)
                 <div class="d-flex justify-content-start my-3">
-                    <a href="{{ route('addTopicPage.view', ['course_id' => $course->id]) }}" class="btn btn-primary">Add New Topic</a>
+                    <a href="{{ route('addTopicPage.view', ['course_id' => $course->id]) }}" class="btn btn-outline-primary-green">Add New Topic</a>
                 </div>
             @endif
             @if ($topic != null)
