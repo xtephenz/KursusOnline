@@ -25,7 +25,7 @@
                 <label for="title" class="form-label">Title</label>
                 <input type="text" class="form-control" name="title" id="title" placeholder="Top Down Parsing" value="{{ $assignment->title }}">
                 @error('title')
-                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                    <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -45,7 +45,7 @@
                 <label for="assignment" class="form-label">Assignment File</label>
                 <input type="file" class="form-control" name="assignment" id="assignment">
                 @error('assignment')
-                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                    <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -54,7 +54,7 @@
                 <label for="attempts" class="form-label">Attempts</label>
                 <input type="number" class="form-control" name="attempts" id="attempts" value="{{ $assignment->attempts ?? '' }}">
                 @error('attempts')
-                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                    <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -63,7 +63,7 @@
                 <label for="start" class="form-label">Start Date</label>
                 <input type="date" class="form-control" name="start" id="start" value="{{ $assignment->start_date->format('Y-m-d') }}">
                 @error('start')
-                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                    <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -72,7 +72,7 @@
                 <label for="due" class="form-label">Due Date</label>
                 <input type="date" class="form-control" name="due" id="due" value="{{ $assignment->due_date->format('Y-m-d') }}">
                 @error('due')
-                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                    <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
 

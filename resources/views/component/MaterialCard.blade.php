@@ -1,10 +1,10 @@
-<div class="container my-4" style="border: 2px solid black; border-radius: 10px; width: 500px; margin-left: 0">
-    <h5 class="mt-2">Materials</h5>
+<div class="container my-4 p-4 shadow-lg" style="border: 2px solid #ddd; border-radius: 10px; width: 500px; margin-left: 0;">
+    <h5 class="mt-2 text-primary" style="font-weight: bold;">Materials</h5>
     <hr>
-    <div class="d-flex flex-column gap-3">
+    <div class="d-flex flex-column gap-4">
         @if ($materials->isNotEmpty())
             @foreach ($materials as $material)
-                <div class="d-flex flex-row justify-content-between align-items-center mb-3">
+                <div class="d-flex flex-row justify-content-between align-items-center border-bottom pb-3">
                     <h6 class="mb-0">{{ $material->title }}</h6>
                     <div class="d-flex align-items-center gap-3">
                         <!-- Download Button -->
@@ -14,7 +14,7 @@
 
                         <!-- Delete Button (Visible if user role is not 2) -->
                         @if (Auth::check() && Auth::user()->role_id != 2)
-                            <button type="button" style="border: none; background: none;" data-bs-toggle="modal" data-bs-target="#deleteMaterialModal{{ $material->id }}">
+                            <button type="button" class="btn btn-link p-0" style="text-decoration: none;" data-bs-toggle="modal" data-bs-target="#deleteMaterialModal{{ $material->id }}">
                                 <img src="{{ asset('images/DeleteIcon.png') }}" alt="Delete" width="30px">
                             </button>
                         @endif
@@ -47,7 +47,7 @@
                 @endif
             @endforeach
         @else
-            <h6 class="text-center">TBA</h6>
+            <h6 class="text-center text-muted">TBA</h6>
         @endif
     </div>
 </div>

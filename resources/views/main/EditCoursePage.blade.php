@@ -19,7 +19,7 @@
                 <label for="name" class="form-label">Course Name</label>
                 <input type="text" class="form-control" name="name" id="name" placeholder="Enter Course Name" value="{{ old('name', $course->name) }}">
                 @error('name')
-                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                    <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -34,7 +34,7 @@
                     @endforeach
                 </select>
                 @error('lecturer')
-                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                    <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
 

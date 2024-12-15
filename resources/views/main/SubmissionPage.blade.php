@@ -84,7 +84,7 @@
                             <label for="submission" class="form-label">Upload Your Submission</label>
                             <input type="file" class="form-control" name="submission" id="submission">
                             @error('submission')
-                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                <div class="text-danger mt-1">{{ $message }}</div>
                             @enderror
                         </div>
 

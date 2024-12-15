@@ -21,7 +21,7 @@
                 <label for="title" class="form-label">Title</label>
                 <input type="text" class="form-control" name="title" id="title" placeholder="e.g., Top Down Parsing" value="{{old('title')}}">
                 @error('title')
-                    <div class="alert alert-danger mt-2 mb-0">{{$message}}</div>
+                    <div class="text-danger mt-1 mb-0">{{$message}}</div>
                 @enderror
             </div>
 
@@ -30,7 +30,7 @@
                 <label for="assignment" class="form-label">Assignment File</label>
                 <input type="file" class="form-control" name="assignment" id="assignment">
                 @error('assignment')
-                    <div class="alert alert-danger mt-2 mb-0">{{$message}}</div>
+                    <div class="text-danger mt-1 mb-0">{{$message}}</div>
                 @enderror
             </div>
 
@@ -39,7 +39,7 @@
                 <label for="attempts" class="form-label">Attempts</label>
                 <input type="number" class="form-control" name="attempts" id="attempts" value="{{old('attempts')}}" min="1">
                 @error('attempts')
-                    <div class="alert alert-danger mt-2 mb-0">{{$message}}</div>
+                    <div class="text-danger mt-1 mb-0">{{$message}}</div>
                 @enderror
             </div>
 
@@ -48,7 +48,7 @@
                 <label for="start" class="form-label">Start Date</label>
                 <input type="date" class="form-control" name="start" id="start" value="{{ old('start') }}">
                 @error('start')
-                    <div class="alert alert-danger mt-2 mb-0">{{$message}}</div>
+                    <div class="text-danger mt-1 mb-0">{{$message}}</div>
                 @enderror
             </div>
 
@@ -57,7 +57,7 @@
                 <label for="due" class="form-label">Due Date</label>
                 <input type="date" class="form-control" name="due" id="due" value="{{ old('due') }}">
                 @error('due')
-                    <div class="alert alert-danger mt-2 mb-0">{{$message}}</div>
+                    <div class="text-danger mt-1 mb-0">{{$message}}</div>
                 @enderror
             </div>
 

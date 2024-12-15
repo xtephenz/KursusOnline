@@ -4,57 +4,38 @@
         <div class="col-12">
             <h2 class="text-center mb-4" style="font-size: 30px; font-weight: bold; color: #007bff;">About Kursus Online</h2>
 
+            <section>
+                
+            </section>
+
             <!-- Paragraphs with improved styling -->
             <p class="lead text-justify mb-4" style="font-size: 18px; line-height: 1.6;">
-                At Kursus Online, we believe that education is the cornerstone of personal and professional growth.
-                Our mission is to provide accessible, high-quality learning opportunities to individuals around the world,
-                irrespective of their location, background, or experience. We aim to democratize education, offering a
-                platform where anyone, at any stage in their life or career, can acquire valuable skills that lead to
-                growth, empowerment, and success.
+                At Kursus Online, we believe education is the cornerstone of personal and professional growth. 
+                Our mission is to provide high-quality, accessible learning opportunities to students and 
+                professionals worldwide, empowering them to acquire valuable skills, achieve their goals, and 
+                realize their fullest potential.
             </p>
 
             <p class="lead text-justify mb-4" style="font-size: 18px; line-height: 1.6;">
-                We are committed to delivering top-notch online courses in a variety of subjects, including Technology,
-                Business, Personal Development, Design, and more. Each course is carefully crafted by subject-matter
-                experts who bring a wealth of knowledge and real-world experience to the table. At Kursus Online,
-                we prioritize learning experiences that are not only engaging and interactive but also practical and
-                relevant to today’s fast-paced world. Our platform offers flexible learning solutions, allowing you to
-                study at your own pace, from anywhere in the world, while balancing your personal, academic, and professional commitments.
+                Our extensive library of courses spans a variety of fields, including Technology, Business, 
+                Personal Development, Design, and more. Each course is carefully designed by subject-matter 
+                experts who combine their deep knowledge with practical, real-world insights. 
+                We ensure that every course is engaging, interactive, and relevant to today’s rapidly changing world, 
+                helping students develop skills they can immediately apply to their academic pursuits, careers, or 
+                personal goals.
             </p>
 
             <p class="lead text-justify mb-4" style="font-size: 18px; line-height: 1.6;">
-                Whether you are a student looking to acquire new skills, a professional seeking career advancement,
-                or someone who simply wants to explore a new field, Kursus Online has something for you. Our wide range
-                of courses includes certification programs, diploma courses, and expert-led workshops that are designed to
-                cater to both beginners and advanced learners. You’ll gain practical skills that can be applied in the
-                workplace immediately, as well as a deeper understanding of the concepts that drive the industry.
+                We’re more than just an online course provider — we’re a partner in your educational journey. 
+                Kursus Online fosters a supportive learning environment where students have access to resources, 
+                tools, and guidance to succeed. Our platform is designed to be user-friendly, ensuring seamless 
+                navigation, assignment submissions, and interactions with instructors and peers.
             </p>
 
             <p class="lead text-justify mb-4" style="font-size: 18px; line-height: 1.6;">
-                Our platform fosters an inclusive environment, ensuring that every learner has the resources, support,
-                and guidance they need to succeed. We are more than just an online course provider — we are a community of
-                passionate learners, instructors, and professionals who are dedicated to helping each other succeed. Our
-                user-friendly platform ensures that learners can access course materials, submit assignments, and engage
-                with instructors and peers seamlessly, making the learning process enjoyable and effective.
-            </p>
-
-            <p class="lead text-justify mb-4" style="font-size: 18px; line-height: 1.6;">
-                At Kursus Online, we envision becoming the leading global platform for lifelong learning. Our goal is
-                to empower millions of individuals around the world to achieve their educational and career aspirations.
-                Through continuous innovation and a focus on learner-centric experiences, we aim to create a platform
-                that supports learners at every stage of their journey, helping them reach their fullest potential.
-            </p>
-
-            <p class="lead text-justify mb-4" style="font-size: 18px; line-height: 1.6;">
-                We are driven by our core values of accessibility, quality, flexibility, and support. We believe in
-                the transformative power of education, and our platform is designed to make learning easy, enjoyable,
-                and impactful. Whether you're looking to start a new career, enhance your existing skills, or simply
-                explore a subject you're passionate about, we are here to guide you every step of the way.
-            </p>
-
-            <p class="lead text-justify mb-4" style="font-size: 18px; line-height: 1.6;">
-                Join us at Kursus Online and start your journey toward a brighter future today. Together, let's
-                unlock new possibilities and take the next step toward realizing your goals.
+                Join us at Kursus Online and take the first step toward building a brighter future. 
+                Let’s work together to make learning accessible, practical, and impactful for students everywhere. 
+                Together, we can unlock your potential and help you achieve your dreams.
             </p>
         </div>
     </div>

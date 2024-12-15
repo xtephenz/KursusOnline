@@ -20,7 +20,6 @@
                         <button type="button" class="btn p-0" data-bs-toggle="modal" data-bs-target="#deleteCourseModal">
                             <img src="{{ asset('images/DeleteIcon.png') }}" alt="Delete" width="30px">
                         </button>
-
                         <div class="modal fade" id="deleteCourseModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -76,7 +75,7 @@
         @if (request()->routeIs('courseDetailPage.view'))
             @if (Auth::check() && Auth::user()->role_id == 1)
                 <div class="d-flex justify-content-start my-3">
-                    <a href="{{ route('addTopicPage.view', ['course_id' => $course->id]) }}" class="btn btn-primary">Add New Topic</a>
+                    <a href="{{ route('addTopicPage.view', ['course_id' => $course->id]) }}" class="btn btn-outline-primary-green">Add New Topic</a>
                 </div>
             @endif
             @if ($topic != null)

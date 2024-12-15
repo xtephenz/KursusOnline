@@ -60,7 +60,7 @@
                 <label for="score" class="form-label">Final Score</label>
                 <input type="number" class="form-control" name="score" id="score" value="{{ $score }}" step="0.01">
                 @error('score')
-                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                    <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
 

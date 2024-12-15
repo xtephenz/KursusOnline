@@ -19,7 +19,7 @@
                 <label for="name" class="form-label">Name</label>
                 <input type="text" class="form-control" name="name" id="name" value="{{ Auth::user()->name }}">
                 @error('name')
-                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                    <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -28,7 +28,7 @@
                 <label for="email" class="form-label">Email</label>
                 <input type="text" class="form-control" name="email" id="email" value="{{ Auth::user()->email }}" readonly>
                 @error('email')
-                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                    <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -37,7 +37,7 @@
                 <label for="dob" class="form-label">Date of Birth</label>
                 <input type="date" class="form-control" name="dob" id="dob" value="{{ Auth::user()->date_of_birth }}">
                 @error('dob')
-                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                    <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -46,7 +46,7 @@
                 <label for="photo" class="form-label">Upload Photo</label>
                 <input type="file" class="form-control" name="photo" id="photo">
                 @error('photo')
-                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                    <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
         </form>

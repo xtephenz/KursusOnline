@@ -22,18 +22,18 @@
             {{-- Title --}}
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" name="title" id="title" placeholder="Top Down Parsing Tutorial" value="{{ old('title') }}" required>
+                <input type="text" class="form-control" name="title" id="title" placeholder="Top Down Parsing Tutorial" value="{{ old('title') }}">
                 @error('title')
-                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                    <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
 
             {{-- Material File --}}
             <div class="mb-3">
                 <label for="material" class="form-label">Material</label>
-                <input type="file" class="form-control" name="material" id="material" required>
+                <input type="file" class="form-control" name="material" id="material">
                 @error('material')
-                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                    <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
 
