@@ -1,5 +1,16 @@
 @extends('layout.master')
 @section('content')
+    <div class="container my-4">
+        <!-- Welcome Message -->
+        <div class="text-end mb-4">
+            @if(Auth::check())
+                <h5>Welcome, {{ Auth::user()->name }}</h5>
+            @else
+
+            @endif
+        </div>
+    </div>
+
     <!-- Hero Section -->
     <section class="hero bg-primary text-white py-5">
         <div class="container text-center">
@@ -21,15 +32,6 @@
 
     <!-- Main Content -->
     <div class="container my-4 pb-3">
-        <!-- Welcome Message -->
-        <div class="text-end mb-4">
-            @if(Auth::check())
-                <h5>Welcome, {{ Auth::user()->name }}</h5>
-            @else
-
-            @endif
-        </div>
-
         <!-- Display Courses Based on Role -->
         @if(Auth::check())
             @if(Auth::user()->role_id == 2)

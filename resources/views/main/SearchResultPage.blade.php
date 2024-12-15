@@ -7,7 +7,7 @@
             <div class="row">
                 @include('component.SearchResultCourseCard', ['courses' => $allCourses])
             </div>
-            <div class="d-flex justify-content-center my-3">
+            <div class="my-3">
                 {{-- Pagination links with custom query handling --}}
                 {{ $allCourses->appends(['query' => request()->input('query')])->links() }}
             </div>

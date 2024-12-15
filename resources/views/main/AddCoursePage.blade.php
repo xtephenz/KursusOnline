@@ -15,23 +15,23 @@
             {{-- Course Name --}}
             <div class="mb-4">
                 <label for="name" class="form-label">Course Name</label>
-                <input type="text" class="form-control" name="name" id="name" placeholder="Enter Course Name" value="{{ old('name', $material->name ?? '') }}" required>
+                <input type="text" class="form-control" name="name" id="name" placeholder="Enter Course Name" value="{{ old('name', $material->name ?? '') }}">
                 @error('name')
-                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                    <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
 
             {{-- Lecturer --}}
             <div class="mb-4">
                 <label for="lecturer" class="form-label">Lecturer</label>
-                <select name="lecturer" id="lecturer" class="form-select" required>
+                <select name="lecturer" id="lecturer" class="form-select">
                     <option value="">-- Select a Lecturer --</option>
                     @foreach ($lecturers as $lecturer)
                         <option value="{{ $lecturer->id }}" {{ old('lecturer') == $lecturer->id ? 'selected' : '' }}>{{ $lecturer->name }}</option>
                     @endforeach
                 </select>
                 @error('lecturer')
-                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                    <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -43,7 +43,7 @@
                         <div class="topic-field mb-2">
                             <input type="text" class="form-control" name="topics[]" placeholder="Topic {{$index + 1}}" value="{{ is_string($topic) ? $topic : '' }}">
                             @error('topics.' . $index)
-                                <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                <div class="text-danger mt-1">{{ $message }}</div>
                             @enderror
                         </div>
                     @endforeach

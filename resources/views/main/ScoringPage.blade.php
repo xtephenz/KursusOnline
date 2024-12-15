@@ -34,16 +34,16 @@
                 <label for="submit_date" class="form-label">Submit Date</label>
                 <input type="date" class="form-control" name="submit_date" id="submit_date" value="{{$submission->submit_date->format('Y-m-d')}}" readonly>
                 @error('start')
-                    <div class="alert alert-danger mt-2">{{$message}}</div>
+                    <div class="text-danger mt-1">{{$message}}</div>
                 @enderror
             </div>
 
             {{-- Score --}}
             <div class="mb-3">
                 <label for="score" class="form-label">Score</label>
-                <input type="number" class="form-control" name="score" id="score" value="{{ old('score', $submission->score ?? '') }}" min="0" max="100" step="0.1" required>
+                <input type="number" class="form-control" name="score" id="score" value="{{ old('score', $submission->score ?? '') }}" min="0" max="100" step="0.1">
                 @error('score')
-                    <div class="alert alert-danger mt-2">{{$message}}</div>
+                    <div class="text-danger mt-1">{{$message}}</div>
                 @enderror
             </div>
 

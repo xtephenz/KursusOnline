@@ -20,7 +20,6 @@
                         <button type="button" class="btn p-0" data-bs-toggle="modal" data-bs-target="#deleteCourseModal">
                             <img src="{{ asset('images/DeleteIcon.png') }}" alt="Delete" width="30px">
                         </button>
-
                         <div class="modal fade" id="deleteCourseModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">

@@ -19,7 +19,7 @@
                     <td class="d-flex justify-content-center">
                         <div class="fs-5 d-inline-flex align-items-center">
                             @if ($course->lecturer->photo)
-                                <img src="{{ asset($course->lecturer->photo) }}" alt="Lecturer's photo"
+                                <img src="{{ Storage::disk('s3')->url($course->lecturer->photo) }}" alt="Lecturer's photo"
                                      class="rounded-circle" style="width: 70px; height: 70px; object-fit: cover;" />
                             @else
                                 <img src="{{ asset('images/EmptyProfile.png') }}" alt="Default profile picture"

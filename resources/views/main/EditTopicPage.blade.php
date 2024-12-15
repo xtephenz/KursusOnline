@@ -25,7 +25,7 @@
                 <label for="topic" class="form-label">Topic Title</label>
                 <input type="text" class="form-control" name="topic" id="topic" value="{{ old('topic', $topic->title) }}" placeholder="Enter topic title">
                 @error('topic')
-                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                    <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
 

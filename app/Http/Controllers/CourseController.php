@@ -28,10 +28,17 @@ class CourseController extends Controller
                 foreach ($activeEnrollments as $enrollment){
                     $activeCourses->push($enrollment->course);
                 }
+                $activeCourses = $activeCourses->sortBy(function ($course) {
+                    return $course->name;
+                });
+            
                 $finishedEnrollments = $student->enrollments->where('status', 'Finished');
                 foreach ($finishedEnrollments as $enrollment){
                     $finishedCourses->push($enrollment->course);
                 }
+                $finishedCourses = $finishedCourses->sortBy(function ($course) {
+                    return $course->name;
+                });
             }
             else if($role_id == 3){
                 $lecturer = Auth::user();

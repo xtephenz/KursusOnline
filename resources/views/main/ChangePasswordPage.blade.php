@@ -23,7 +23,7 @@
                 <label for="currentPassword" class="form-label">Current Password</label>
                 <input type="password" class="form-control" name="currentPassword" id="currentPassword" autocomplete="current-password">
                 @error('currentPassword')
-                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                    <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -32,7 +32,7 @@
                 <label for="newPassword" class="form-label">New Password</label>
                 <input type="password" class="form-control" name="newPassword" id="newPassword" autocomplete="new-password">
                 @error('newPassword')
-                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                    <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
 
@@ -41,7 +41,7 @@
                 <label for="newPassword_confirmation" class="form-label">Confirm New Password</label>
                 <input type="password" class="form-control" name="newPassword_confirmation" id="newPassword_confirmation" autocomplete="new-password">
                 @error('newPassword_confirmation')
-                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                    <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
 
